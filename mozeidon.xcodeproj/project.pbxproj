@@ -1,0 +1,403 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		90A598362D0DE5DD0066C54B /* DSFQuickActionBar in Frameworks */ = {isa = PBXBuildFile; productRef = 90A598352D0DE5DD0066C54B /* DSFQuickActionBar */; };
+		90A598382D0DE5DD0066C54B /* DSFQuickActionBar-static in Frameworks */ = {isa = PBXBuildFile; productRef = 90A598372D0DE5DD0066C54B /* DSFQuickActionBar-static */; };
+		90A5983B2D0DEAB50066C54B /* DSFQuickActionBar in Frameworks */ = {isa = PBXBuildFile; productRef = 90A5983A2D0DEAB50066C54B /* DSFQuickActionBar */; };
+		90A5983D2D0DEAB50066C54B /* DSFQuickActionBar-static in Frameworks */ = {isa = PBXBuildFile; productRef = 90A5983C2D0DEAB50066C54B /* DSFQuickActionBar-static */; };
+		90A598402D0DEAD20066C54B /* DSFQuickActionBar in Frameworks */ = {isa = PBXBuildFile; productRef = 90A5983F2D0DEAD20066C54B /* DSFQuickActionBar */; };
+		90A598422D0DEAD20066C54B /* DSFQuickActionBar-static in Frameworks */ = {isa = PBXBuildFile; productRef = 90A598412D0DEAD20066C54B /* DSFQuickActionBar-static */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		90A5980F2D0DD40F0066C54B /* mozeidon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mozeidon.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		90A598332D0DE2CD0066C54B /* Exceptions for "mozeidon" folder in "mozeidon" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 90A5980E2D0DD40F0066C54B /* mozeidon */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		90A598112D0DD40F0066C54B /* mozeidon */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				90A598332D0DE2CD0066C54B /* Exceptions for "mozeidon" folder in "mozeidon" target */,
+			);
+			path = mozeidon;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		90A5980C2D0DD40F0066C54B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				90A598382D0DE5DD0066C54B /* DSFQuickActionBar-static in Frameworks */,
+				90A5983B2D0DEAB50066C54B /* DSFQuickActionBar in Frameworks */,
+				90A598422D0DEAD20066C54B /* DSFQuickActionBar-static in Frameworks */,
+				90A598402D0DEAD20066C54B /* DSFQuickActionBar in Frameworks */,
+				90A5983D2D0DEAB50066C54B /* DSFQuickActionBar-static in Frameworks */,
+				90A598362D0DE5DD0066C54B /* DSFQuickActionBar in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		90A598062D0DD40F0066C54B = {
+			isa = PBXGroup;
+			children = (
+				90A598112D0DD40F0066C54B /* mozeidon */,
+				90A598102D0DD40F0066C54B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		90A598102D0DD40F0066C54B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				90A5980F2D0DD40F0066C54B /* mozeidon.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		90A5980E2D0DD40F0066C54B /* mozeidon */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 90A5981E2D0DD4100066C54B /* Build configuration list for PBXNativeTarget "mozeidon" */;
+			buildPhases = (
+				90A5980B2D0DD40F0066C54B /* Sources */,
+				90A5980C2D0DD40F0066C54B /* Frameworks */,
+				90A5980D2D0DD40F0066C54B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				90A598112D0DD40F0066C54B /* mozeidon */,
+			);
+			name = mozeidon;
+			packageProductDependencies = (
+				90A598352D0DE5DD0066C54B /* DSFQuickActionBar */,
+				90A598372D0DE5DD0066C54B /* DSFQuickActionBar-static */,
+				90A5983A2D0DEAB50066C54B /* DSFQuickActionBar */,
+				90A5983C2D0DEAB50066C54B /* DSFQuickActionBar-static */,
+				90A5983F2D0DEAD20066C54B /* DSFQuickActionBar */,
+				90A598412D0DEAD20066C54B /* DSFQuickActionBar-static */,
+			);
+			productName = mozeidon;
+			productReference = 90A5980F2D0DD40F0066C54B /* mozeidon.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		90A598072D0DD40F0066C54B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					90A5980E2D0DD40F0066C54B = {
+						CreatedOnToolsVersion = 16.2;
+					};
+				};
+			};
+			buildConfigurationList = 90A5980A2D0DD40F0066C54B /* Build configuration list for PBXProject "mozeidon" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 90A598062D0DD40F0066C54B;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				90A5983E2D0DEAD20066C54B /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 90A598102D0DD40F0066C54B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				90A5980E2D0DD40F0066C54B /* mozeidon */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		90A5980D2D0DD40F0066C54B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		90A5980B2D0DD40F0066C54B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		90A5981C2D0DD4100066C54B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		90A5981D2D0DD4100066C54B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		90A5981F2D0DD4100066C54B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = mozeidon/mozeidon.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = mozeidon/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.egovelox.mozeidon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		90A598202D0DD4100066C54B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = mozeidon/mozeidon.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = mozeidon/Info.plist;
+				INFOPLIST_KEY_LSUIElement = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.egovelox.mozeidon;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		90A5980A2D0DD40F0066C54B /* Build configuration list for PBXProject "mozeidon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90A5981C2D0DD4100066C54B /* Debug */,
+				90A5981D2D0DD4100066C54B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		90A5981E2D0DD4100066C54B /* Build configuration list for PBXNativeTarget "mozeidon" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				90A5981F2D0DD4100066C54B /* Debug */,
+				90A598202D0DD4100066C54B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		90A5983E2D0DEAD20066C54B /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/egovelox/DSFQuickActionBar";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		90A598352D0DE5DD0066C54B /* DSFQuickActionBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DSFQuickActionBar;
+		};
+		90A598372D0DE5DD0066C54B /* DSFQuickActionBar-static */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "DSFQuickActionBar-static";
+		};
+		90A5983A2D0DEAB50066C54B /* DSFQuickActionBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DSFQuickActionBar;
+		};
+		90A5983C2D0DEAB50066C54B /* DSFQuickActionBar-static */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = "DSFQuickActionBar-static";
+		};
+		90A5983F2D0DEAD20066C54B /* DSFQuickActionBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90A5983E2D0DEAD20066C54B /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */;
+			productName = DSFQuickActionBar;
+		};
+		90A598412D0DEAD20066C54B /* DSFQuickActionBar-static */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90A5983E2D0DEAD20066C54B /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */;
+			productName = "DSFQuickActionBar-static";
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 90A598072D0DD40F0066C54B /* Project object */;
+}
