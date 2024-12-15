@@ -12,7 +12,7 @@ let filters__ = Filters()
 struct Filter: Hashable, CustomStringConvertible {
     let id: String
     let name: String
-    var userPresenting: String { return self.name }
+    var userPresenting: String
     var description: String
 }
 
@@ -24,9 +24,13 @@ class Filters {
     var all: [Filter] = []
 
     // Return filters matching the search term
-    func search(_ cliPath: String, _ searchTerm: String) -> [Filter] {
+    func search(_ commandType: String,_ cliPath: String, _ searchTerm: String) -> [Filter] {
         if shouldReload() {
-            all = load(cliPath)
+            if commandType == "tabs" {
+                all = load(cliPath)
+            } else if commandType == "bookmarks" {
+                all = loadBookmarks(cliPath)
+            }
         }
         if searchTerm.isEmpty && showAllIfEmpty { return all }
         return all
@@ -48,7 +52,23 @@ class Filters {
         let tabs = raw.components(separatedBy: "\n").dropLast()
         return tabs.map {
             let tab = $0.components(separatedBy: " ")
-            return Filter(id: tab[0], name: tab[1], description: tab[1..<tab.count].joined(separator: " ") )
+            return Filter(id: tab[0], name: tab[1], userPresenting: tab[1], description: tab[1..<tab.count].joined(separator: " ") )
+        }
+    }
+    
+    func loadBookmarks(_ cliPath: String) -> [Filter] {
+        let separator = " ::mzseparator:: "
+        let raw = shell(
+            "\(cliPath) bookmarks --go-template '{{range .Items}}{{.Title}}\(separator){{.Parent}}\(separator){{.Url}} {{\"\\n\"}}{{end}}'"
+        )
+        let tabs = raw.components(separatedBy: "\n").dropLast()
+        return tabs.map {
+            let tab = $0.components(separatedBy: separator)
+            let title = tab[0]
+            let parent = tab[1]
+            let url = tab[2].replacingOccurrences(of: "https?://", with: "", options: .regularExpression)
+            let shortUrl = url.components(separatedBy: "/").prefix(3).joined(separator: "/")
+            return Filter(id: tab[2], name: tab[0], userPresenting: title, description: "\(parent)  \(shortUrl)" )
         }
     }
 }

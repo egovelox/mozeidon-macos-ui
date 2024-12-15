@@ -13,6 +13,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var deletedItems: [AnyHashable] = []
     var lastActiveApp: NSRunningApplication?
     var contentView: StatusItemView?
+    var commandType = ""
     
     func getMozeidonCliPath() -> String {
         if  contentView != nil,
@@ -22,6 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             fatalError("The mozeidon cli path must terminate with `mozeidon`")
         }
     }
+    
     func captureLastActiveApp() {
         if let frontApp = NSWorkspace.shared.frontmostApplication {
             lastActiveApp = frontApp
@@ -48,6 +50,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { (event) in
             
             if event.modifierFlags.contains(.control) && event.keyCode == 14 { // Ctrl + 'E'
+                self.commandType = "tabs"
+                self.captureLastActiveApp()
+                self.showGlobalQuickActions("")
+            }
+            
+            if event.modifierFlags.contains(.control) && event.keyCode == 15 { // Ctrl + 'R'
+                self.commandType = "bookmarks"
                 self.captureLastActiveApp()
                 self.showGlobalQuickActions("")
             }
@@ -142,7 +151,7 @@ extension AppDelegate: DSFQuickActionBarContentSource {
     func quickActionBar(_ quickActionBar: DSFQuickActionBar, itemsForSearchTermTask task: DSFQuickActionBar.SearchTask) {
         self.currentSearch = task.searchTerm
 
-        let currentMatches: [AnyHashable] = filters__.search(getMozeidonCliPath(), task.searchTerm)
+        let currentMatches: [AnyHashable] = filters__.search(commandType, getMozeidonCliPath(), task.searchTerm)
 
         task.complete(with: currentMatches)
     }
@@ -170,22 +179,35 @@ extension AppDelegate: DSFQuickActionBarContentSource {
     }
 
     func quickActionBar(_: DSFQuickActionBar, didActivateItem item: AnyHashable) {
-        if let tab = item as? Filter {
-            shell("\(getMozeidonCliPath()) tabs switch \(tab.id) && open -a firefox")
-            filters__.clear()
+        if commandType == "tabs" {
+            if let tab = item as? Filter {
+                shell("\(getMozeidonCliPath()) tabs switch \(tab.id) && open -a firefox")
+                filters__.clear()
+            }
+            else {
+                fatalError()
+            }
         }
-        else {
-            fatalError()
+        if commandType == "bookmarks" {
+            if let tab = item as? Filter {
+                shell("\(getMozeidonCliPath()) tabs new \(tab.id) && open -a firefox")
+                filters__.clear()
+            }
+            else {
+                fatalError()
+            }
         }
     }
     
     func quickActionBar(_: DSFQuickActionBar, didActivate2Item item: AnyHashable) {
-        if let tab = item as? Filter {
-            shell("\(getMozeidonCliPath()) tabs close \(tab.id)")
-            self.deletedItems.append(item)
-        }
-        else {
-            fatalError()
+        if commandType == "tabs" {
+            if let tab = item as? Filter {
+                shell("\(getMozeidonCliPath()) tabs close \(tab.id)")
+                self.deletedItems.append(item)
+            }
+            else {
+                fatalError()
+            }
         }
     }
 
