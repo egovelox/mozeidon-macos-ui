@@ -13,6 +13,7 @@
 		90A5983D2D0DEAB50066C54B /* DSFQuickActionBar-static in Frameworks */ = {isa = PBXBuildFile; productRef = 90A5983C2D0DEAB50066C54B /* DSFQuickActionBar-static */; };
 		90A598402D0DEAD20066C54B /* DSFQuickActionBar in Frameworks */ = {isa = PBXBuildFile; productRef = 90A5983F2D0DEAD20066C54B /* DSFQuickActionBar */; };
 		90A598422D0DEAD20066C54B /* DSFQuickActionBar-static in Frameworks */ = {isa = PBXBuildFile; productRef = 90A598412D0DEAD20066C54B /* DSFQuickActionBar-static */; };
+		90D412912D0F320E0035FF9F /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 90D412902D0F320E0035FF9F /* KeyboardShortcuts */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				90A598382D0DE5DD0066C54B /* DSFQuickActionBar-static in Frameworks */,
+				90D412912D0F320E0035FF9F /* KeyboardShortcuts in Frameworks */,
 				90A5983B2D0DEAB50066C54B /* DSFQuickActionBar in Frameworks */,
 				90A598422D0DEAD20066C54B /* DSFQuickActionBar-static in Frameworks */,
 				90A598402D0DEAD20066C54B /* DSFQuickActionBar in Frameworks */,
@@ -99,6 +101,7 @@
 				90A5983C2D0DEAB50066C54B /* DSFQuickActionBar-static */,
 				90A5983F2D0DEAD20066C54B /* DSFQuickActionBar */,
 				90A598412D0DEAD20066C54B /* DSFQuickActionBar-static */,
+				90D412902D0F320E0035FF9F /* KeyboardShortcuts */,
 			);
 			productName = mozeidon;
 			productReference = 90A5980F2D0DD40F0066C54B /* mozeidon.app */;
@@ -130,6 +133,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				90A5983E2D0DEAD20066C54B /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */,
+				90D4128F2D0F320E0035FF9F /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 90A598102D0DD40F0066C54B /* Products */;
@@ -293,13 +297,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = mozeidon/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.egovelox.mozeidon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -321,13 +326,14 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = mozeidon/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_LSUIElement = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 12.4;
+				MACOSX_DEPLOYMENT_TARGET = 14.6;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.egovelox.mozeidon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -368,6 +374,14 @@
 				kind = branch;
 			};
 		};
+		90D4128F2D0F320E0035FF9F /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.2.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -396,6 +410,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 90A5983E2D0DEAD20066C54B /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */;
 			productName = "DSFQuickActionBar-static";
+		};
+		90D412902D0F320E0035FF9F /* KeyboardShortcuts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90D4128F2D0F320E0035FF9F /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
+			productName = KeyboardShortcuts;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

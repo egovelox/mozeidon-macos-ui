@@ -1,19 +1,18 @@
 # mozeidon-macos-ui
 
-A simple window ala `spotlight` to select Mozilla browser tabs.
+A simple window ala `spotlight` to list and select Mozilla tabs or bookmarks via `mozeidon`.
 
-For macOS >= `13` only.
+Requirements : 
+- requires macOS >= `14.6`.
+- [mozeidon](https://github.com/egovelox/mozeidon) ( follow installation process )
 
-Prerequisites : [mozeidon](https://github.com/egovelox/mozeidon)
 
-⚠️ this app is a non-sandboxed agent-app,  
-it will query your authorization to use `ctl-E` and `ctl-R` as global keybindings  
-( allowing the app be triggered inside other apps ).
+⚠️ this app does not run in `sandbox` mode: it relies on the external mozeidon cli called with `sh -c`.
 
 | Keybinding    | Action |
 | -------- | ------- |
-| ctrl-E  | list tabs    |
-| ctrl-R | list bookmarks     |
+| user setting  | list tabs    |
+| user setting | list bookmarks     |
 | Enter | open element in browser    |
 | ctrl-L | close element in browser    |
 | ctrl-J    | scroll-down   |

@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import KeyboardShortcuts
 
 @main
 struct Mozeidon: App {

@@ -7,6 +7,7 @@
 import Cocoa
 import SwiftUI
 import DSFQuickActionBar
+import KeyboardShortcuts
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var currentSearch = ""
@@ -46,33 +47,25 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var statusBarItem: NSStatusItem?
     var popover: NSPopover?
     
-    func registerGlobalHotKey() {
-        NSEvent.addGlobalMonitorForEvents(matching: .keyDown) { (event) in
-            
-            if event.modifierFlags.contains(.control) && event.keyCode == 14 { // Ctrl + 'E'
-                self.commandType = "tabs"
-                self.captureLastActiveApp()
-                self.showGlobalQuickActions("")
-            }
-            
-            if event.modifierFlags.contains(.control) && event.keyCode == 15 { // Ctrl + 'R'
-                self.commandType = "bookmarks"
-                self.captureLastActiveApp()
-                self.showGlobalQuickActions("")
-            }
-        }
+    func tabs() {
+        self.commandType = "tabs"
+        self.captureLastActiveApp()
+        self.showGlobalQuickActions("")
+    }
+    
+    func bookmarks() {
+        self.commandType = "bookmarks"
+        self.captureLastActiveApp()
+        self.showGlobalQuickActions("")
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let options: NSDictionary = [kAXTrustedCheckOptionPrompt.takeUnretainedValue() as String : true]
-        let accessEnabled = AXIsProcessTrustedWithOptions(options)
-
-        if !accessEnabled {
-           print("Access Not Enabled")
-        } else {
-           print("Access Granted")
+        KeyboardShortcuts.onKeyUp(for: .tabs) { [self] in
+            self.tabs()
         }
-        self.registerGlobalHotKey()
+        KeyboardShortcuts.onKeyUp(for: .bookmarks) { [self] in
+            self.bookmarks()
+        }
         // Create a status bar item
         statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
 
@@ -87,7 +80,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             // Create an instance of your SwiftUI view
             contentView = StatusItemView()
             print(contentView!.$mozeidonCli)
-
+            
             // Create an NSPopover to display the SwiftUI view
             popover = NSPopover()
             popover?.contentViewController = NSHostingController(rootView: contentView)

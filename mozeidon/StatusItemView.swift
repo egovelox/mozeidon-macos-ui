@@ -5,6 +5,7 @@
 //
 
 import SwiftUI
+import KeyboardShortcuts
 
 struct StatusItemView: View {
 
@@ -13,30 +14,37 @@ struct StatusItemView: View {
 
 
     var body: some View {
-        VStack {
-            HStack {
-                Text("  mozeidon cli")
-                    .foregroundColor(Color.gray)
+        VStack(alignment: .leading) {
+            Text("Mozeidon settings").font(.largeTitle.weight(.bold)).padding(.top)
+            HStack() {
                 Form {
-                    Section {
-                        TextField("", text: $mozeidonCli).padding().frame(minWidth: 100, idealWidth: 100, maxWidth: 200)
-                    }
+                    TextField("default search", text: $tabsPlaceHolder).frame(maxWidth: 300)
                 }
             }
-            HStack {
-                Text("default search")
-                    .foregroundColor(Color.gray)
+            .frame(minHeight:30)
+            .padding(.top)
+            HStack() {
                 Form {
-                    Section {
-                        TextField("", text: $tabsPlaceHolder).padding().frame(minWidth: 100, idealWidth: 100, maxWidth: 200)
-                    }
+                    TextField("mozeidon cli  ", text: $mozeidonCli).frame(maxWidth: 300)
                 }
             }
+            .frame(minHeight:30)
+            HStack {
+                Form {
+                    KeyboardShortcuts.Recorder("list tabs           ", name: .tabs)
+                }
+            }.frame(minHeight:30)
+            HStack {
+                Form {
+                    KeyboardShortcuts.Recorder("list bookmarks", name: .bookmarks)
+                }
+            }.frame(minHeight:30)
+            Spacer().frame(height: 30)
             HStack {
                 Button("Quit") {
                     NSApplication.shared.terminate(nil)
                 }
-            }.padding()
+            }.padding(.bottom)
         }
         .frame(minWidth: 400, idealWidth: 500, maxWidth: 700)
     }
