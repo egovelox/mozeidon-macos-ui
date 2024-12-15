@@ -120,6 +120,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.quickActionBar.present(
             placeholderText: "",
             searchImage: NSImage(named: NSImage.Name("mozeidon")),
+            initialSearchText: contentView!.$tabsPlaceHolder.wrappedValue,
             width: 800,
             height: 400
         ) {
