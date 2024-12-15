@@ -20,3 +20,5 @@ Requirements :
 | ctrl-C / Esc  | close list   |
 
 <img width="957" alt="mozeidon_ui" src="https://github.com/user-attachments/assets/12fae81b-d56e-464c-865f-cfec97260d2e" />
+
+<img width="549" alt="Screenshot 2024-12-15 at 7 01 20 PM" src="https://github.com/user-attachments/assets/1afe22b8-774c-4587-8d64-dbe7bf993dba" />
