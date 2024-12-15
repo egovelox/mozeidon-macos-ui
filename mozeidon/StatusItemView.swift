@@ -20,8 +20,12 @@ struct StatusItemView: View {
                         TextField("", text: $mozeidonCli).padding().scaledToFit()
                     }
                 }
-            }.padding(.bottom)
-           
+            }
+            HStack {
+                Button("Quit") {
+                    NSApplication.shared.terminate(nil)
+                }
+            }.padding()
         }
         .frame(minWidth: 400, idealWidth: 500, maxWidth: 700)
     }
