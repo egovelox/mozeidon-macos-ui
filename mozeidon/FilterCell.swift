@@ -9,8 +9,8 @@
 import SwiftUI
 
 @available(macOS 10.15, *)
-func SwiftUIResultCell(filter: Filter, currentSearch: String) -> NSView {
-    let uiView = FilterCellQuickViewSwiftUI(title: filter.userPresenting, description: filter.description)
+func SwiftUIResultCell(filter: Filter, currentSearch: String, isDeleted: Bool) -> NSView {
+    let uiView = FilterCellQuickViewSwiftUI(title: filter.userPresenting, description: filter.description, isDeleted: isDeleted)
     let hosting = NSHostingView(rootView: uiView)
     return hosting
 }
@@ -20,6 +20,7 @@ struct FilterCellQuickViewSwiftUI: View {
 
     let title: String
     let description: String
+    let isDeleted: Bool
 
     var body: some View {
         HStack {
@@ -37,7 +38,8 @@ struct FilterCellQuickViewSwiftUI: View {
                 HStack {
                     Text(description).italic()
                         .multilineTextAlignment(.leading)
-                        .foregroundColor(.gray)
+                        .foregroundColor(isDeleted ? Color.red
+                            .opacity(0.7) : .gray)
                     Spacer()
                 }
             }
@@ -51,7 +53,8 @@ struct FilterCellQuickViewSwiftUI_Previews: PreviewProvider {
     static var previews: some View {
         FilterCellQuickViewSwiftUI(
             title: "Accordion Fold Transition",
-            description: "Transitions from one image to another of a differing dimensions by unfolding.")
+            description: "Transitions from one image to another of a differing dimensions by unfolding.",
+            isDeleted: false)
     }
 }
 

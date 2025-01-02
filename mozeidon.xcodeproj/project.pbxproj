@@ -7,13 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		90A598362D0DE5DD0066C54B /* DSFQuickActionBar in Frameworks */ = {isa = PBXBuildFile; productRef = 90A598352D0DE5DD0066C54B /* DSFQuickActionBar */; };
-		90A598382D0DE5DD0066C54B /* DSFQuickActionBar-static in Frameworks */ = {isa = PBXBuildFile; productRef = 90A598372D0DE5DD0066C54B /* DSFQuickActionBar-static */; };
-		90A5983B2D0DEAB50066C54B /* DSFQuickActionBar in Frameworks */ = {isa = PBXBuildFile; productRef = 90A5983A2D0DEAB50066C54B /* DSFQuickActionBar */; };
-		90A5983D2D0DEAB50066C54B /* DSFQuickActionBar-static in Frameworks */ = {isa = PBXBuildFile; productRef = 90A5983C2D0DEAB50066C54B /* DSFQuickActionBar-static */; };
-		90A598402D0DEAD20066C54B /* DSFQuickActionBar in Frameworks */ = {isa = PBXBuildFile; productRef = 90A5983F2D0DEAD20066C54B /* DSFQuickActionBar */; };
-		90A598422D0DEAD20066C54B /* DSFQuickActionBar-static in Frameworks */ = {isa = PBXBuildFile; productRef = 90A598412D0DEAD20066C54B /* DSFQuickActionBar-static */; };
 		90D412912D0F320E0035FF9F /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 90D412902D0F320E0035FF9F /* KeyboardShortcuts */; };
+		90D6ADA82D261FBA00A6D370 /* DSFQuickActionBar in Frameworks */ = {isa = PBXBuildFile; productRef = 90D6ADA72D261FBA00A6D370 /* DSFQuickActionBar */; };
+		90D6ADAA2D261FBA00A6D370 /* DSFQuickActionBar-static in Frameworks */ = {isa = PBXBuildFile; productRef = 90D6ADA92D261FBA00A6D370 /* DSFQuickActionBar-static */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,13 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90A598382D0DE5DD0066C54B /* DSFQuickActionBar-static in Frameworks */,
+				90D6ADA82D261FBA00A6D370 /* DSFQuickActionBar in Frameworks */,
 				90D412912D0F320E0035FF9F /* KeyboardShortcuts in Frameworks */,
-				90A5983B2D0DEAB50066C54B /* DSFQuickActionBar in Frameworks */,
-				90A598422D0DEAD20066C54B /* DSFQuickActionBar-static in Frameworks */,
-				90A598402D0DEAD20066C54B /* DSFQuickActionBar in Frameworks */,
-				90A5983D2D0DEAB50066C54B /* DSFQuickActionBar-static in Frameworks */,
-				90A598362D0DE5DD0066C54B /* DSFQuickActionBar in Frameworks */,
+				90D6ADAA2D261FBA00A6D370 /* DSFQuickActionBar-static in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				90A598112D0DD40F0066C54B /* mozeidon */,
+				90D6AD902D2607ED00A6D370 /* Frameworks */,
 				90A598102D0DD40F0066C54B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -73,6 +66,13 @@
 				90A5980F2D0DD40F0066C54B /* mozeidon.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		90D6AD902D2607ED00A6D370 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -95,13 +95,9 @@
 			);
 			name = mozeidon;
 			packageProductDependencies = (
-				90A598352D0DE5DD0066C54B /* DSFQuickActionBar */,
-				90A598372D0DE5DD0066C54B /* DSFQuickActionBar-static */,
-				90A5983A2D0DEAB50066C54B /* DSFQuickActionBar */,
-				90A5983C2D0DEAB50066C54B /* DSFQuickActionBar-static */,
-				90A5983F2D0DEAD20066C54B /* DSFQuickActionBar */,
-				90A598412D0DEAD20066C54B /* DSFQuickActionBar-static */,
 				90D412902D0F320E0035FF9F /* KeyboardShortcuts */,
+				90D6ADA72D261FBA00A6D370 /* DSFQuickActionBar */,
+				90D6ADA92D261FBA00A6D370 /* DSFQuickActionBar-static */,
 			);
 			productName = mozeidon;
 			productReference = 90A5980F2D0DD40F0066C54B /* mozeidon.app */;
@@ -132,8 +128,8 @@
 			mainGroup = 90A598062D0DD40F0066C54B;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				90A5983E2D0DEAD20066C54B /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */,
 				90D4128F2D0F320E0035FF9F /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
+				90D6AD952D261F7C00A6D370 /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 90A598102D0DD40F0066C54B /* Products */;
@@ -366,14 +362,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		90A5983E2D0DEAD20066C54B /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/egovelox/DSFQuickActionBar";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 		90D4128F2D0F320E0035FF9F /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/KeyboardShortcuts";
@@ -382,39 +370,31 @@
 				minimumVersion = 2.2.4;
 			};
 		};
+		90D6AD952D261F7C00A6D370 /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/egovelox/DSFQuickActionBar";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		90A598352D0DE5DD0066C54B /* DSFQuickActionBar */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DSFQuickActionBar;
-		};
-		90A598372D0DE5DD0066C54B /* DSFQuickActionBar-static */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = "DSFQuickActionBar-static";
-		};
-		90A5983A2D0DEAB50066C54B /* DSFQuickActionBar */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = DSFQuickActionBar;
-		};
-		90A5983C2D0DEAB50066C54B /* DSFQuickActionBar-static */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = "DSFQuickActionBar-static";
-		};
-		90A5983F2D0DEAD20066C54B /* DSFQuickActionBar */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 90A5983E2D0DEAD20066C54B /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */;
-			productName = DSFQuickActionBar;
-		};
-		90A598412D0DEAD20066C54B /* DSFQuickActionBar-static */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 90A5983E2D0DEAD20066C54B /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */;
-			productName = "DSFQuickActionBar-static";
-		};
 		90D412902D0F320E0035FF9F /* KeyboardShortcuts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 90D4128F2D0F320E0035FF9F /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
 			productName = KeyboardShortcuts;
+		};
+		90D6ADA72D261FBA00A6D370 /* DSFQuickActionBar */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90D6AD952D261F7C00A6D370 /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */;
+			productName = DSFQuickActionBar;
+		};
+		90D6ADA92D261FBA00A6D370 /* DSFQuickActionBar-static */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 90D6AD952D261F7C00A6D370 /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */;
+			productName = "DSFQuickActionBar-static";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

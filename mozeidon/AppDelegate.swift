@@ -146,13 +146,14 @@ extension AppDelegate: DSFQuickActionBarContentSource {
         self.currentSearch = task.searchTerm
 
         let currentMatches: [AnyHashable] = filters__.search(commandType, getMozeidonCliPath(), task.searchTerm)
-
+        
         task.complete(with: currentMatches)
     }
 
     func quickActionBar(_: DSFQuickActionBar, viewForItem item: AnyHashable, searchTerm: String) -> NSView? {
+
         if let filter = item as? Filter {
-            return cellForFilter(filter: filter)
+            return cellForFilter(filter: filter, isDeleted: deletedItems.contains(item))
         }
         else if let separator = item as? NSBox {
             return separator
@@ -217,10 +218,10 @@ extension AppDelegate: DSFQuickActionBarContentSource {
 }
 
 extension AppDelegate {
-    private func cellForFilter(filter: Filter) -> NSView {
+    private func cellForFilter(filter: Filter, isDeleted: Bool) -> NSView {
         
             if #available(macOS 10.15, *) {
-                return SwiftUIResultCell(filter: filter, currentSearch: currentSearch)
+                return SwiftUIResultCell(filter: filter, currentSearch: currentSearch, isDeleted: isDeleted)
             } else {
                 // Fallback on earlier versions
             }
