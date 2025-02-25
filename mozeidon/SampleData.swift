@@ -13,6 +13,7 @@ struct Filter: Hashable, CustomStringConvertible {
     let id: String
     let name: String
     var userPresenting: String
+    let url: String
     var description: String
 }
 
@@ -28,8 +29,12 @@ class Filters {
         if shouldReload() {
             if commandType == "tabs" {
                 all = load(cliPath)
+            } else if commandType == "recentlyClosedTabs" {
+                all = loadRecentlyClosedTabs(cliPath)
             } else if commandType == "bookmarks" {
                 all = loadBookmarks(cliPath)
+            } else if commandType == "historyItems" {
+                all = loadHistoryItems(cliPath)
             }
         }
         if searchTerm.isEmpty && showAllIfEmpty { return all }
@@ -47,30 +52,57 @@ class Filters {
     
     func load(_ cliPath: String) -> [Filter] {
         let raw = shell(
-            "\(cliPath) tabs get --go-template '{{range .Items}}{{.WindowId}}:{{.Id}} {{.Domain}} {{.Title}}{{\"\\n\"}}{{end}}'"
+            "\(cliPath) tabs get --go-template '{{range .Items}}{{.WindowId}}:{{.Id}} {{.Domain}} {{.Url}} {{.Title}}{{\"\\n\"}}{{end}}'"
         )
         let tabs = raw.components(separatedBy: "\n").dropLast()
         return tabs.map {
             let tab = $0.components(separatedBy: " ")
-            return Filter(id: tab[0], name: tab[1], userPresenting: tab[1], description: tab[1..<tab.count].joined(separator: " ") )
+            return Filter(id: tab[0], name: tab[1], userPresenting: tab[1], url: tab[2], description: tab[3..<tab.count].joined(separator: " ") )
+        }
+    }
+    
+    func loadRecentlyClosedTabs(_ cliPath: String) -> [Filter] {
+        let raw = shell(
+            "\(cliPath) tabs get -c --go-template '{{range .Items}}{{.WindowId}}:{{.Id}} {{.Domain}} {{.Url}} {{.Title}}{{\"\\n\"}}{{end}}'"
+        )
+        let tabs = raw.components(separatedBy: "\n").dropLast()
+        return tabs.map {
+            let tab = $0.components(separatedBy: " ")
+            return Filter(id: tab[2], name: tab[1], userPresenting: tab[1], url: tab[2], description: tab[3..<tab.count].joined(separator: " ") )
         }
     }
     
     func loadBookmarks(_ cliPath: String) -> [Filter] {
         let separator = " ::mzseparator:: "
-        let raw = shell(
+        let rawB = shell(
             "\(cliPath) bookmarks --go-template '{{range .Items}}{{.Title}}\(separator){{.Parent}}\(separator){{.Url}} {{\"\\n\"}}{{end}}'"
         )
-        let tabs = raw.components(separatedBy: "\n").dropLast()
-        return tabs.map {
-            let tab = $0.components(separatedBy: separator)
-            let title = tab[0]
-            let parent = tab[1]
-            let url = tab[2].replacingOccurrences(of: "https?://", with: "", options: .regularExpression)
-            let shortUrl = url.components(separatedBy: "/").prefix(3).joined(separator: "/")
-            return Filter(id: tab[2], name: tab[0], userPresenting: title, description: "\(parent)  \(shortUrl)" )
+        let bmarks = rawB.components(separatedBy: "\n").dropLast()
+        return bmarks.map {
+            let parts = $0.components(separatedBy: separator)
+            let title = parts[0]
+            let parent = parts[1]
+            let url = parts[2].replacingOccurrences(of: "https?://", with: "", options: .regularExpression)
+            let shortUrl = url.components(separatedBy: "/").prefix(5).joined(separator: "/")
+            return Filter(id: parts[2], name: title, userPresenting: title, url: shortUrl, description: parent)
         }
     }
+    
+    func loadHistoryItems(_ cliPath: String) -> [Filter] {
+        let separator = " ::mzseparator:: "
+        let rawH = shell(
+            "\(cliPath) history --go-template '{{range .Items}}{{.Title}}\(separator){{.Id}}\(separator){{.Url}} {{\"\\n\"}}{{end}}'"
+        )
+        let hItems = rawH.components(separatedBy: "\n").dropLast()
+        return hItems.map {
+            let parts = $0.components(separatedBy: separator)
+            let title = parts[0]
+                let url = parts[2].replacingOccurrences(of: "https?://", with: "", options: .regularExpression)
+            let shortUrl = url.components(separatedBy: "/").prefix(5).joined(separator: "/")
+            return Filter(id: parts[2], name: title, userPresenting: title, url: "", description: shortUrl )
+        }
+    }
+    
 }
 
 @discardableResult
@@ -78,20 +110,18 @@ func shell(_ command: String) -> String {
     let process = Process()
     let pipe = Pipe()
 
-    process.standardOutput = pipe // you can also set stderr and stdin
+    process.standardOutput = pipe
     process.executableURL = URL(fileURLWithPath: "/bin/sh")
     process.arguments = ["-c"]
     process.arguments?.append(command)
     
     try! process.run()
-    //process.waitUntilExit() // do we need this ?
  
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
 
     guard let standardOutput = String(data: data, encoding: .utf8) else {
         FileHandle.standardError.write(Data("Error in reading standard output data".utf8))
-        fatalError() // or exit(EXIT_FAILURE) and equivalent
-        // or, you might want to handle it in some other way instead of a crash
+        fatalError()
     }
     return standardOutput
 }

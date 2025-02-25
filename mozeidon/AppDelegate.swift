@@ -25,6 +25,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
     
+    func getBrowserToOpen() -> String {
+        return contentView?.$browserToOpen.wrappedValue ?? "firefox"
+    }
+    
     func captureLastActiveApp() {
         if let frontApp = NSWorkspace.shared.frontmostApplication {
             lastActiveApp = frontApp
@@ -58,6 +62,18 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.captureLastActiveApp()
         self.showGlobalQuickActions("")
     }
+    
+    func historyItems() {
+        self.commandType = "historyItems"
+        self.captureLastActiveApp()
+        self.showGlobalQuickActions("")
+    }
+    
+    func recentlyClosedTabs() {
+        self.commandType = "recentlyClosedTabs"
+        self.captureLastActiveApp()
+        self.showGlobalQuickActions("")
+    }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         KeyboardShortcuts.onKeyUp(for: .tabs) { [self] in
@@ -65,6 +81,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
         KeyboardShortcuts.onKeyUp(for: .bookmarks) { [self] in
             self.bookmarks()
+        }
+        KeyboardShortcuts.onKeyUp(for: .historyItems) { [self] in
+            self.historyItems()
+        }
+        KeyboardShortcuts.onKeyUp(for: .recentlyClosedTabs) { [self] in
+            self.recentlyClosedTabs()
         }
         // Create a status bar item
         statusBarItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
@@ -130,17 +152,6 @@ func MakeSeparator() -> NSView {
 }
 
 extension AppDelegate: DSFQuickActionBarContentSource {
-    func makeButton() -> NSView {
-        let b = NSButton()
-        b.translatesAutoresizingMaskIntoConstraints = false
-        b.isBordered = false
-        b.title = "Advanced search…"
-        b.font = .systemFont(ofSize: 16)
-        b.alignment = .left
-        b.target = self
-        b.action = #selector(performAdvancedSearch(_:))
-        return b
-    }
 
     func quickActionBar(_ quickActionBar: DSFQuickActionBar, itemsForSearchTermTask task: DSFQuickActionBar.SearchTask) {
         self.currentSearch = task.searchTerm
@@ -176,16 +187,16 @@ extension AppDelegate: DSFQuickActionBarContentSource {
     func quickActionBar(_: DSFQuickActionBar, didActivateItem item: AnyHashable) {
         if commandType == "tabs" {
             if let tab = item as? Filter {
-                shell("\(getMozeidonCliPath()) tabs switch \(tab.id) && open -a firefox")
+                shell("\(getMozeidonCliPath()) tabs switch \(tab.id) && open -a \"\(getBrowserToOpen())\"")
                 filters__.clear()
             }
             else {
                 fatalError()
             }
         }
-        if commandType == "bookmarks" {
+        else {
             if let tab = item as? Filter {
-                shell("\(getMozeidonCliPath()) tabs new \(tab.id) && open -a firefox")
+                shell("\(getMozeidonCliPath()) tabs new \(tab.id) && open -a \"\(getBrowserToOpen())\"")
                 filters__.clear()
             }
             else {
@@ -220,11 +231,9 @@ extension AppDelegate: DSFQuickActionBarContentSource {
 extension AppDelegate {
     private func cellForFilter(filter: Filter, isDeleted: Bool) -> NSView {
         
-            if #available(macOS 10.15, *) {
-                return SwiftUIResultCell(filter: filter, currentSearch: currentSearch, isDeleted: isDeleted)
-            } else {
-                // Fallback on earlier versions
-            }
+        if #available(macOS 10.15, *) {
+            return SwiftUIResultCell(filter: filter, currentSearch: currentSearch, isDeleted: isDeleted)
+        }
         
         fatalError()
     }
