@@ -3,19 +3,14 @@
 //  mozeidon
 //
 //
-
-#if canImport(SwiftUI)
-
 import SwiftUI
 
-@available(macOS 10.15, *)
 func SwiftUIResultCell(filter: Filter, currentSearch: String, isDeleted: Bool) -> NSView {
     let uiView = FilterCellQuickViewSwiftUI(title: filter.userPresenting, description: filter.description, url: filter.url, isDeleted: isDeleted)
     let hosting = NSHostingView(rootView: uiView)
     return hosting
 }
 
-@available(macOS 10.15.0, *)
 struct FilterCellQuickViewSwiftUI: View {
 
     let title: String
@@ -52,5 +47,3 @@ struct FilterCellQuickViewSwiftUI: View {
         .padding(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
     }
 }
-
-#endif

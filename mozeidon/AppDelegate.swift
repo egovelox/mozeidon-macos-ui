@@ -229,12 +229,7 @@ extension AppDelegate: DSFQuickActionBarContentSource {
 
 extension AppDelegate {
     private func cellForFilter(filter: Filter, isDeleted: Bool) -> NSView {
-        
-        if #available(macOS 10.15, *) {
-            return SwiftUIResultCell(filter: filter, currentSearch: currentSearch, isDeleted: isDeleted)
-        }
-        
-        fatalError()
+        return SwiftUIResultCell(filter: filter, currentSearch: currentSearch, isDeleted: isDeleted)
     }
 }
 
