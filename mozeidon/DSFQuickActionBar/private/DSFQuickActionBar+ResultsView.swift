@@ -25,7 +25,6 @@
 //
 
 import AppKit
-import DSFAppearanceManager
 
 extension DSFQuickActionBar {
 	class ResultsView: NSView {

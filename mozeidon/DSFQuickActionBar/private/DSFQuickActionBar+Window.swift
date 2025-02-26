@@ -25,7 +25,6 @@
 //
 
 import AppKit
-import DSFAppearanceManager
 
 extension DSFQuickActionBar {
 	@objc(DSFQuickActionBarWindow) class Window: EphemeralWindow {
@@ -185,7 +184,7 @@ internal extension DSFQuickActionBar.Window {
 		self.autorecalculatesKeyViewLoop = true
 
 		// Make sure we adopt the effective appearance
-		UsingEffectiveAppearance(ofWindow: parentWindow) {
+		
 
 			/// The background view for the window
 			let content = DSFPrimaryRoundedView()
@@ -205,11 +204,9 @@ internal extension DSFQuickActionBar.Window {
 			content.addConstraint(NSLayoutConstraint(item: primaryStack, attribute: .bottom, relatedBy: .equal, toItem: content, attribute: .bottom, multiplier: 1, constant: 0))
 
 			self.backgroundColor = NSColor.clear
-			self.isOpaque = false
+			self.isOpaque = true
 
-			// We set 'titled' here AND 'borderless' as it seems to give us a bolder
-			// drop shadow than just 'borderless' itself. How odd!
-			self.styleMask = [.titled, .fullSizeContentView, .borderless]
+			self.styleMask = [.fullSizeContentView]
 
 			// Make sure the user cannot move the window
 			self.isMovable = false
@@ -242,7 +239,7 @@ internal extension DSFQuickActionBar.Window {
 			ensuringMainThreadAsync { [weak self] in
 				self?.searchTermDidChange()
 			}
-		}
+		
 	}
 }
 
