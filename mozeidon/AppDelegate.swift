@@ -6,7 +6,6 @@
 
 import Cocoa
 import SwiftUI
-import DSFQuickActionBar
 import KeyboardShortcuts
 
 class AppDelegate: NSObject, NSApplicationDelegate {
