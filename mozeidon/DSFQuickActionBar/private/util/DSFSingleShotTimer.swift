@@ -28,36 +28,39 @@ import Foundation
 
 // A single use cancellable timer
 class DSFSingleShotTimer {
-	/// Create a single-use timer object
-	/// - Parameters:
-	///   - delay: The amount of time to delay before calling
-	///   - queue: The queue to on which to call the completion block
-	///   - completionBlock: Called when the timer
-	init(delay: TimeInterval, queue: DispatchQueue = .main, _ completionBlock: @escaping () -> Void) {
-		//Swift.print("DSFSingleShotTimer: init")
-		self.workItem = DispatchWorkItem(block: {
-			completionBlock()
-		})
-		queue.asyncAfter(deadline: .now() + delay, execute: workItem!)
-	}
+    /// Create a single-use timer object
+    /// - Parameters:
+    ///   - delay: The amount of time to delay before calling
+    ///   - queue: The queue to on which to call the completion block
+    ///   - completionBlock: Called when the timer
+    init(
+        delay: TimeInterval, queue: DispatchQueue = .main,
+        _ completionBlock: @escaping () -> Void
+    ) {
+        //Swift.print("DSFSingleShotTimer: init")
+        self.workItem = DispatchWorkItem(block: {
+            completionBlock()
+        })
+        queue.asyncAfter(deadline: .now() + delay, execute: workItem!)
+    }
 
-	func cancel() {
-		//Swift.print("DSFSingleShotTimer: cancel")
-		self.stop()
-	}
+    func cancel() {
+        //Swift.print("DSFSingleShotTimer: cancel")
+        self.stop()
+    }
 
-	deinit {
-		//Swift.print("DSFSingleShotTimer: deinit")
-		self.stop()
-	}
+    deinit {
+        //Swift.print("DSFSingleShotTimer: deinit")
+        self.stop()
+    }
 
-	// Private
-	private var workItem: DispatchWorkItem?
+    // Private
+    private var workItem: DispatchWorkItem?
 }
 
-private extension DSFSingleShotTimer {
-	private func stop() {
-		self.workItem?.cancel()
-		self.workItem = nil
-	}
+extension DSFSingleShotTimer {
+    private func stop() {
+        self.workItem?.cancel()
+        self.workItem = nil
+    }
 }

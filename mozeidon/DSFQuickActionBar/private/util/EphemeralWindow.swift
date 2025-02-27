@@ -30,62 +30,68 @@ import Foundation
 /// A window class that closes when the window resigns its focus (eg clicking outside it)
 class EphemeralWindow: NSPanel {
 
-	private var hasClosed = false
+    private var hasClosed = false
 
-	override init(contentRect: NSRect, styleMask style: NSWindow.StyleMask, backing backingStoreType: NSWindow.BackingStoreType, defer flag: Bool) {
-		super.init(
-			contentRect: contentRect,
-			styleMask: [.nonactivatingPanel, .titled, .borderless, .resizable, .closable, .fullSizeContentView],
-			backing: backingStoreType,
-			defer: flag
-		)
+    override init(
+        contentRect: NSRect, styleMask style: NSWindow.StyleMask,
+        backing backingStoreType: NSWindow.BackingStoreType, defer flag: Bool
+    ) {
+        super.init(
+            contentRect: contentRect,
+            styleMask: [
+                .nonactivatingPanel, .titled, .borderless, .resizable,
+                .closable, .fullSizeContentView,
+            ],
+            backing: backingStoreType,
+            defer: flag
+        )
 
-		self.isFloatingPanel = true
-		self.level = .floating
+        self.isFloatingPanel = true
+        self.level = .floating
 
-		/// Don't show a window title, even if it's set
-		self.titleVisibility = .hidden
-		self.titlebarAppearsTransparent = true
+        /// Don't show a window title, even if it's set
+        self.titleVisibility = .hidden
+        self.titlebarAppearsTransparent = true
 
-		self.hasShadow = true
-		self.invalidateShadow()
+        self.hasShadow = true
+        self.invalidateShadow()
 
-		self.hidesOnDeactivate = true
+        self.hidesOnDeactivate = true
 
-		/// Sets animations accordingly
-		self.animationBehavior = .utilityWindow
+        /// Sets animations accordingly
+        self.animationBehavior = .utilityWindow
 
-		//Swift.print("EphemeralWindow: init")
-	}
+        //Swift.print("EphemeralWindow: init")
+    }
 
-	/// Close automatically when out of focus, e.g. outside click
-	override func resignMain() {
-		super.resignMain()
-		self.close()
-	}
+    /// Close automatically when out of focus, e.g. outside click
+    override func resignMain() {
+        super.resignMain()
+        self.close()
+    }
 
-	/// Close and toggle presentation, so that it matches the current state of the panel
-	override func close() {
-		if self.hasClosed == false {
-			super.close()
-			self.hasClosed = true
-			self.didDetectClose?()
-		}
-	}
+    /// Close and toggle presentation, so that it matches the current state of the panel
+    override func close() {
+        if self.hasClosed == false {
+            super.close()
+            self.hasClosed = true
+            self.didDetectClose?()
+        }
+    }
 
-	/// A block that gets called when the window closes
-	var didDetectClose: (() -> Void)?
+    /// A block that gets called when the window closes
+    var didDetectClose: (() -> Void)?
 
-	/// `canBecomeKey` and `canBecomeMain` are both required so that text inputs inside the panel can receive focus
-	override var canBecomeKey: Bool {
-		return true
-	}
+    /// `canBecomeKey` and `canBecomeMain` are both required so that text inputs inside the panel can receive focus
+    override var canBecomeKey: Bool {
+        return true
+    }
 
-	override var canBecomeMain: Bool {
-		return true
-	}
+    override var canBecomeMain: Bool {
+        return true
+    }
 
-//	deinit {
-//		Swift.print("EphemeralWindow: deinit")
-//	}
+    //	deinit {
+    //		Swift.print("EphemeralWindow: deinit")
+    //	}
 }

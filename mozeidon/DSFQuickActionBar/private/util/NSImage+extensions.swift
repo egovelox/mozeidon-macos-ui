@@ -27,34 +27,36 @@
 import AppKit.NSImage
 
 extension NSImage {
-	/// Create an image by drawing into it via a block
-	static func CreateARGB32(width: Int, height: Int, drawBlock: () throws -> Void) rethrows -> NSImage {
-		let offscreenRep = NSBitmapImageRep(
-			bitmapDataPlanes: nil,
-			pixelsWide: width,
-			pixelsHigh: height,
-			bitsPerSample: 8,
-			samplesPerPixel: 4,
-			hasAlpha: true,
-			isPlanar: false,
-			colorSpaceName: NSColorSpaceName.calibratedRGB,
-			bytesPerRow: 0, bitsPerPixel: 0
-		)!
+    /// Create an image by drawing into it via a block
+    static func CreateARGB32(
+        width: Int, height: Int, drawBlock: () throws -> Void
+    ) rethrows -> NSImage {
+        let offscreenRep = NSBitmapImageRep(
+            bitmapDataPlanes: nil,
+            pixelsWide: width,
+            pixelsHigh: height,
+            bitsPerSample: 8,
+            samplesPerPixel: 4,
+            hasAlpha: true,
+            isPlanar: false,
+            colorSpaceName: NSColorSpaceName.calibratedRGB,
+            bytesPerRow: 0, bitsPerPixel: 0
+        )!
 
-		let g = NSGraphicsContext(bitmapImageRep: offscreenRep)
+        let g = NSGraphicsContext(bitmapImageRep: offscreenRep)
 
-		do {
-			NSGraphicsContext.saveGraphicsState()
-			defer {
-				NSGraphicsContext.restoreGraphicsState()
-			}
+        do {
+            NSGraphicsContext.saveGraphicsState()
+            defer {
+                NSGraphicsContext.restoreGraphicsState()
+            }
 
-			NSGraphicsContext.current = g
-			try drawBlock()
-		}
+            NSGraphicsContext.current = g
+            try drawBlock()
+        }
 
-		let image = NSImage(size: NSSize(width: width, height: height))
-		image.addRepresentation(offscreenRep)
-		return image
-	}
+        let image = NSImage(size: NSSize(width: width, height: height))
+        image.addRepresentation(offscreenRep)
+        return image
+    }
 }

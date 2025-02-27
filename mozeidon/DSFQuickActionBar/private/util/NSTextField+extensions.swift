@@ -24,29 +24,30 @@
 //  IN THE SOFTWARE.
 //
 
-import Foundation
 import AppKit
+import Foundation
 
-internal extension NSTextField {
-	/// Return an `NSTextField` configured exactly like one created by dragging a “Label” into a storyboard.
-	static func newLabel(_ stringValue: String = "") -> NSTextField {
-		if #available(macOS 10.12, *) {
-			return NSTextField(labelWithString: stringValue)
-		} else {
-			let label = NSTextField()
-			label.isEditable = false
-			label.isSelectable = false
-			label.textColor = .labelColor
-			label.backgroundColor = .controlColor
-			label.drawsBackground = false
-			label.isBezeled = false
-			label.alignment = .natural
-			label.font = NSFont.systemFont(ofSize: NSFont.systemFontSize(for: label.controlSize))
-			label.lineBreakMode = .byClipping
-			label.cell?.isScrollable = true
-			label.cell?.wraps = false
-			label.stringValue = stringValue
-			return label
-		}
-	}
+extension NSTextField {
+    /// Return an `NSTextField` configured exactly like one created by dragging a “Label” into a storyboard.
+    static func newLabel(_ stringValue: String = "") -> NSTextField {
+        if #available(macOS 10.12, *) {
+            return NSTextField(labelWithString: stringValue)
+        } else {
+            let label = NSTextField()
+            label.isEditable = false
+            label.isSelectable = false
+            label.textColor = .labelColor
+            label.backgroundColor = .controlColor
+            label.drawsBackground = false
+            label.isBezeled = false
+            label.alignment = .natural
+            label.font = NSFont.systemFont(
+                ofSize: NSFont.systemFontSize(for: label.controlSize))
+            label.lineBreakMode = .byClipping
+            label.cell?.isScrollable = true
+            label.cell?.wraps = false
+            label.stringValue = stringValue
+            return label
+        }
+    }
 }

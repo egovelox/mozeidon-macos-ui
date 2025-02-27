@@ -31,16 +31,16 @@ import Foundation
 /// If this is called from the main thread it just executes the work block instantly
 /// Otherwise, schedules the block to be run on the main thread in the next run loop.
 @inlinable func ensuringMainThreadAsync(
-	group: DispatchGroup? = nil,
-	qos: DispatchQoS = .unspecified,
-	flags: DispatchWorkItemFlags = [],
-	execute work: @escaping @convention(block) () -> Void
+    group: DispatchGroup? = nil,
+    qos: DispatchQoS = .unspecified,
+    flags: DispatchWorkItemFlags = [],
+    execute work: @escaping @convention(block) () -> Void
 ) {
-	if Thread.isMainThread {
-		// If we're already on the main thread, just call the work block
-		work()
-	}
-	else {
-		DispatchQueue.main.async(group: group, qos: qos, flags: flags, execute: work)
-	}
+    if Thread.isMainThread {
+        // If we're already on the main thread, just call the work block
+        work()
+    } else {
+        DispatchQueue.main.async(
+            group: group, qos: qos, flags: flags, execute: work)
+    }
 }

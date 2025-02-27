@@ -28,24 +28,25 @@ import Dispatch
 import Foundation
 
 class DSFDebounce {
-	// MARK: - Properties
+    // MARK: - Properties
 
-	private let interval: TimeInterval
-	private let queue: DispatchQueue
-	private var workItem = DispatchWorkItem(block: {})
+    private let interval: TimeInterval
+    private let queue: DispatchQueue
+    private var workItem = DispatchWorkItem(block: {})
 
-	// MARK: - Initializer
+    // MARK: - Initializer
 
-	init(seconds: TimeInterval, queue: DispatchQueue = DispatchQueue.main) {
-		self.interval = seconds
-		self.queue = queue
-	}
+    init(seconds: TimeInterval, queue: DispatchQueue = DispatchQueue.main) {
+        self.interval = seconds
+        self.queue = queue
+    }
 
-	// MARK: - Debouncing function
+    // MARK: - Debouncing function
 
-	func debounce(action: @escaping (() -> Void)) {
-		self.workItem.cancel()
-		self.workItem = DispatchWorkItem(block: { action() })
-		self.queue.asyncAfter(deadline: .now() + self.interval, execute: self.workItem)
-	}
+    func debounce(action: @escaping (() -> Void)) {
+        self.workItem.cancel()
+        self.workItem = DispatchWorkItem(block: { action() })
+        self.queue.asyncAfter(
+            deadline: .now() + self.interval, execute: self.workItem)
+    }
 }

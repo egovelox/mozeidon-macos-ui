@@ -29,62 +29,74 @@ import Foundation
 
 // To allow us to call global objc functions undo/redo using #selector() instead of Selector()
 @objc private protocol UndoRedoActionRespondable {
-	func undo(_ sender: AnyObject)
-	func redo(_ sender: AnyObject)
+    func undo(_ sender: AnyObject)
+    func redo(_ sender: AnyObject)
 }
 
 /// A text field that handles cut/copy/paste/undo/redo without having an appropriate menu item handling it
 ///
 /// Thanks [cyrilzakka](https://github.com/dagronf/DSFQuickActionBar/pull/4/files).
 internal final class DSFTextField: NSTextField {
-	override func performKeyEquivalent(with event: NSEvent) -> Bool {
-		if
-			event.type == .keyDown,
-			event.modifierFlags.contains(.command),
-			let chars = event.charactersIgnoringModifiers?.lowercased()
-		{
-			switch chars {
-			case "x":
-				// Cut
-				if NSApp.sendAction(#selector(NSText.cut(_:)), to: nil, from: self) {
-					return true
-				}
-			case "c":
-				// Copy
-				if NSApp.sendAction(#selector(NSText.copy(_:)), to: nil, from: self) {
-					return true
-				}
-			case "v":
-				// Paste
-				if NSApp.sendAction(#selector(NSText.paste(_:)), to: nil, from: self) {
-					return true
-				}
-			case "a":
-				// Select all
-				if NSApp.sendAction(#selector(NSResponder.selectAll(_:)), to: nil, from: self) {
-					return true
-				}
-			case "z":
-				if event.modifierFlags.contains(.shift) {
-					// Redo (command-shift-z)
-					if NSApp.sendAction(#selector(UndoRedoActionRespondable.redo(_:)), to: nil, from: self) {
-						return true
-					}
-				}
-				else {
-					// Undo (command-z)
-					if NSApp.sendAction(#selector(UndoRedoActionRespondable.undo(_:)), to: nil, from: self) {
-						return true
-					}
-				}
-			default:
-				break
-			}
-		}
-		return super.performKeyEquivalent(with: event)
-	}
+    override func performKeyEquivalent(with event: NSEvent) -> Bool {
+        if event.type == .keyDown,
+            event.modifierFlags.contains(.command),
+            let chars = event.charactersIgnoringModifiers?.lowercased()
+        {
+            switch chars {
+            case "x":
+                // Cut
+                if NSApp.sendAction(
+                    #selector(NSText.cut(_:)), to: nil, from: self)
+                {
+                    return true
+                }
+            case "c":
+                // Copy
+                if NSApp.sendAction(
+                    #selector(NSText.copy(_:)), to: nil, from: self)
+                {
+                    return true
+                }
+            case "v":
+                // Paste
+                if NSApp.sendAction(
+                    #selector(NSText.paste(_:)), to: nil, from: self)
+                {
+                    return true
+                }
+            case "a":
+                // Select all
+                if NSApp.sendAction(
+                    #selector(NSResponder.selectAll(_:)), to: nil, from: self)
+                {
+                    return true
+                }
+            case "z":
+                if event.modifierFlags.contains(.shift) {
+                    // Redo (command-shift-z)
+                    if NSApp.sendAction(
+                        #selector(UndoRedoActionRespondable.redo(_:)), to: nil,
+                        from: self)
+                    {
+                        return true
+                    }
+                } else {
+                    // Undo (command-z)
+                    if NSApp.sendAction(
+                        #selector(UndoRedoActionRespondable.undo(_:)), to: nil,
+                        from: self)
+                    {
+                        return true
+                    }
+                }
+            default:
+                break
+            }
+        }
+        return super.performKeyEquivalent(with: event)
+    }
 
-	override var allowsVibrancy: Bool {
-		return true
-	}
+    override var allowsVibrancy: Bool {
+        return true
+    }
 }

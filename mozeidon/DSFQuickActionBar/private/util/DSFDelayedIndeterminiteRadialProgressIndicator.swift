@@ -24,76 +24,79 @@
 //  IN THE SOFTWARE.
 //
 
-import Foundation
 import AppKit
+import Foundation
 
 /// A radial, indeterminite, NSProgressIndicator instance that delays its visibility for a specific time
 @IBDesignable
 class DSFDelayedIndeterminiteRadialProgressIndicator: NSProgressIndicator {
-	/// The time to delay before displaying the spinner.
-	@IBInspectable var delayUntilDisplay: TimeInterval = 0.25
+    /// The time to delay before displaying the spinner.
+    @IBInspectable var delayUntilDisplay: TimeInterval = 0.25
 
-	convenience init() {
-		self.init(frame: .zero)
-	}
+    convenience init() {
+        self.init(frame: .zero)
+    }
 
-	override init(frame frameRect: NSRect) {
-		super.init(frame: frameRect)
-		self.setup()
-	}
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        self.setup()
+    }
 
-	required init?(coder: NSCoder) {
-		super.init(coder: coder)
-		self.setup()
-	}
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setup()
+    }
 
-	/// Start the animation. The spinner will only become visible after the delay time
-	///
-	/// Must be called on the main thread
-	override func startAnimation(_ sender: Any?) {
-		assert(Thread.isMainThread)
-		// If we're already waiting, just ignore the request
-		guard self._timer == nil || self.isHidden == false else {
-			return
-		}
-		self._timer = DSFSingleShotTimer(delay: self.delayUntilDisplay) { [weak self] in
-			self?.delayedStart()
-		}
-	}
+    /// Start the animation. The spinner will only become visible after the delay time
+    ///
+    /// Must be called on the main thread
+    override func startAnimation(_ sender: Any?) {
+        assert(Thread.isMainThread)
+        // If we're already waiting, just ignore the request
+        guard self._timer == nil || self.isHidden == false else {
+            return
+        }
+        self._timer = DSFSingleShotTimer(delay: self.delayUntilDisplay) {
+            [weak self] in
+            self?.delayedStart()
+        }
+    }
 
-	/// Stop and hide the spinner if it is visible
-	///
-	/// Must be called on the main thread
-	override func stopAnimation(_ sender: Any?) {
-		assert(Thread.isMainThread)
-		self._timer?.cancel()
-		self._timer = nil
-		super.stopAnimation(self)
-	}
+    /// Stop and hide the spinner if it is visible
+    ///
+    /// Must be called on the main thread
+    override func stopAnimation(_ sender: Any?) {
+        assert(Thread.isMainThread)
+        self._timer?.cancel()
+        self._timer = nil
+        super.stopAnimation(self)
+    }
 
-	// private
-	private var _timer: DSFSingleShotTimer?
+    // private
+    private var _timer: DSFSingleShotTimer?
 }
 
-private extension DSFDelayedIndeterminiteRadialProgressIndicator {
-	func setup() {
-		self.translatesAutoresizingMaskIntoConstraints = false
-		self.wantsLayer = true
-		self.usesThreadedAnimation = true
-		self.isIndeterminate = true
-		self.isDisplayedWhenStopped = false
-		self.style = .spinning
-		self.controlSize = .regular
+extension DSFDelayedIndeterminiteRadialProgressIndicator {
+    fileprivate func setup() {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        self.wantsLayer = true
+        self.usesThreadedAnimation = true
+        self.isIndeterminate = true
+        self.isDisplayedWhenStopped = false
+        self.style = .spinning
+        self.controlSize = .regular
 
-		self.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-		self.setContentHuggingPriority(.defaultHigh, for: .vertical)
-		self.setContentCompressionResistancePriority(.defaultHigh, for: .horizontal)
-		self.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-	}
+        self.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        self.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        self.setContentCompressionResistancePriority(
+            .defaultHigh, for: .horizontal)
+        self.setContentCompressionResistancePriority(
+            .defaultHigh, for: .vertical)
+    }
 
-	func delayedStart() {
-		//self._timer?.cancel()
-		self._timer = nil
-		super.startAnimation(self)
-	}
+    fileprivate func delayedStart() {
+        //self._timer?.cancel()
+        self._timer = nil
+        super.startAnimation(self)
+    }
 }

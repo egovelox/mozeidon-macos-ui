@@ -27,10 +27,12 @@
 import Foundation
 
 extension NSLock {
-	/// Call the block within the confines of the lock
-	@inlinable func usingLock<ReturnType>(_ block: () -> ReturnType) -> ReturnType {
-		self.lock()
-		defer { self.unlock() }
-		return block()
-	}
+    /// Call the block within the confines of the lock
+    @inlinable func usingLock<ReturnType>(_ block: () -> ReturnType)
+        -> ReturnType
+    {
+        self.lock()
+        defer { self.unlock() }
+        return block()
+    }
 }

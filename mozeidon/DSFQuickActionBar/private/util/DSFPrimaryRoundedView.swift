@@ -30,30 +30,30 @@ import Foundation
 /// The primary drawing view for the quick action bar.
 final class DSFPrimaryRoundedView: NSView {
 
-	override var allowsVibrancy: Bool { true }
-	override var wantsUpdateLayer: Bool { true }
+    override var allowsVibrancy: Bool { true }
+    override var wantsUpdateLayer: Bool { true }
 
-	override init(frame frameRect: NSRect) {
-		super.init(frame: frameRect)
-		self.setup()
-	}
+    override init(frame frameRect: NSRect) {
+        super.init(frame: frameRect)
+        self.setup()
+    }
 
-	required init?(coder: NSCoder) {
-		super.init(coder: coder)
-		self.setup()
-	}
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.setup()
+    }
 
-	private func setup() {
-		self.wantsLayer = true
-		self.translatesAutoresizingMaskIntoConstraints = false
-	}
+    private func setup() {
+        self.wantsLayer = true
+        self.translatesAutoresizingMaskIntoConstraints = false
+    }
 
-	override func updateLayer() {
-		let baseLayer = self.layer!
-		baseLayer.cornerRadius = 10
-		baseLayer.backgroundColor = NSColor.windowBackgroundColor.cgColor
-        
+    override func updateLayer() {
+        let baseLayer = self.layer!
+        baseLayer.cornerRadius = 10
+        baseLayer.backgroundColor = NSColor.windowBackgroundColor.cgColor
+
         baseLayer.borderWidth = 1
         baseLayer.borderColor = NSColor.tertiaryLabelColor.cgColor
-	}
+    }
 }

@@ -4,24 +4,24 @@
 //
 //
 
-import SwiftUI
 import KeyboardShortcuts
+import SwiftUI
 
 struct StatusItemView: View {
 
-    @AppStorage("mozeidonCli") var mozeidonCli = "/opt/homebrew/bin/mozeidon";
-    @AppStorage("browserToOpen") var browserToOpen = "firefox";
-    @AppStorage("tabsPlaceholder") var tabsPlaceHolder = "";
-
+    @AppStorage("mozeidonCli") var mozeidonCli = "/opt/homebrew/bin/mozeidon"
+    @AppStorage("browserToOpen") var browserToOpen = "firefox"
+    @AppStorage("tabsPlaceholder") var tabsPlaceHolder = ""
 
     var body: some View {
-     
+
         VStack(alignment: .leading) {
             Spacer().frame(height: 10)
             Text("Mozeidon settings").font(.largeTitle.weight(.bold))
             Spacer().frame(height: 20)
             Form {
-                TextField("default search \n", text: $tabsPlaceHolder).frame(maxWidth: 300)
+                TextField("default search \n", text: $tabsPlaceHolder).frame(
+                    maxWidth: 300)
             }
             DisclosureGroup(
                 content: {
@@ -38,9 +38,12 @@ struct StatusItemView: View {
                 content: {
                     Form {
                         KeyboardShortcuts.Recorder("tabs", name: .tabs)
-                        KeyboardShortcuts.Recorder("recently-closed", name: .recentlyClosedTabs)
-                        KeyboardShortcuts.Recorder("bookmarks", name: .bookmarks)
-                        KeyboardShortcuts.Recorder("history", name: .historyItems)
+                        KeyboardShortcuts.Recorder(
+                            "recently-closed", name: .recentlyClosedTabs)
+                        KeyboardShortcuts.Recorder(
+                            "bookmarks", name: .bookmarks)
+                        KeyboardShortcuts.Recorder(
+                            "history", name: .historyItems)
                     }.formStyle(.grouped)
                 },
                 label: {
@@ -56,7 +59,8 @@ struct StatusItemView: View {
                                 KeyboardShortcuts.Recorder("up", name: .up)
                             }
                         }.formStyle(.grouped)
-                    }},
+                    }
+                },
                 label: {
                     Text("Navigation keybindings ( needs restart )")
                 }

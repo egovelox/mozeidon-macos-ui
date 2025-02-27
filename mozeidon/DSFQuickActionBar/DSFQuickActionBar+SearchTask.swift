@@ -26,38 +26,40 @@
 
 import Foundation
 
-public extension DSFQuickActionBar {
-	class SearchTask {
-		/// The search term for the query
-		public let searchTerm: String
-		
-		/// Is the current search task cancelled?
-		public var isCancelled: Bool {
-			self.completionLock.usingLock {
-				completion == nil
-			}
-		}
-		
-		/// Call to supply the results for the search query.
-		public func complete(with results: [AnyHashable]) {
-			self.completionLock.usingLock {
-				self.completion?(results)
-			}
-		}
-		
-		/// Cancel the current search request
-		public func cancel() {
-			self.completionLock.usingLock {
-				self.completion?(nil)
-			}
-		}
-		
-		internal init(searchTerm: String, completion: @escaping ([AnyHashable]?) -> Void) {
-			self.completion = completion
-			self.searchTerm = searchTerm
-		}
-		
-		internal var completion: (([AnyHashable]?) -> Void)?
-		internal let completionLock = NSLock()
-	}
+extension DSFQuickActionBar {
+    public class SearchTask {
+        /// The search term for the query
+        public let searchTerm: String
+
+        /// Is the current search task cancelled?
+        public var isCancelled: Bool {
+            self.completionLock.usingLock {
+                completion == nil
+            }
+        }
+
+        /// Call to supply the results for the search query.
+        public func complete(with results: [AnyHashable]) {
+            self.completionLock.usingLock {
+                self.completion?(results)
+            }
+        }
+
+        /// Cancel the current search request
+        public func cancel() {
+            self.completionLock.usingLock {
+                self.completion?(nil)
+            }
+        }
+
+        internal init(
+            searchTerm: String, completion: @escaping ([AnyHashable]?) -> Void
+        ) {
+            self.completion = completion
+            self.searchTerm = searchTerm
+        }
+
+        internal var completion: (([AnyHashable]?) -> Void)?
+        internal let completionLock = NSLock()
+    }
 }

@@ -28,5 +28,5 @@ import AppKit.NSClipView
 
 /// A simple flipped clip view for NSScrollView
 class DSFFlippedClipView: NSClipView {
-	override var isFlipped: Bool { return true }
+    override var isFlipped: Bool { return true }
 }

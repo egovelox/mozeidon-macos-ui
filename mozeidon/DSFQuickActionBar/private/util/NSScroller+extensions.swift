@@ -28,9 +28,9 @@ import Foundation
 
 /// A scroller with a transparent background
 class TransparentBackgroundScroller: NSScroller {
-	override func draw(_ dirtyRect: NSRect) {
-		NSColor.clear.set()
-		dirtyRect.fill()
-		self.drawKnob()
-	}
+    override func draw(_ dirtyRect: NSRect) {
+        NSColor.clear.set()
+        dirtyRect.fill()
+        self.drawKnob()
+    }
 }

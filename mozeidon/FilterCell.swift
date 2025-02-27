@@ -5,8 +5,12 @@
 //
 import SwiftUI
 
-func SwiftUIResultCell(filter: Filter, currentSearch: String, isDeleted: Bool) -> NSView {
-    let uiView = FilterCellQuickViewSwiftUI(title: filter.userPresenting, description: filter.description, url: filter.url, isDeleted: isDeleted)
+func SwiftUIResultCell(filter: Filter, currentSearch: String, isDeleted: Bool)
+    -> NSView
+{
+    let uiView = FilterCellQuickViewSwiftUI(
+        title: filter.userPresenting, description: filter.description,
+        url: filter.url, isDeleted: isDeleted)
     let hosting = NSHostingView(rootView: uiView)
     return hosting
 }
@@ -25,23 +29,29 @@ struct FilterCellQuickViewSwiftUI: View {
                     Text(title)
                         .font(.system(size: 16))
                         .multilineTextAlignment(.leading)
-                        .foregroundColor(isDeleted ? Color.red.opacity(0.7) : .primary)
+                        .foregroundColor(
+                            isDeleted ? Color.red.opacity(0.7) : .primary)
                     Spacer()
                 }
                 HStack {
                     Text(description).italic()
                         .multilineTextAlignment(.leading)
-                        .foregroundColor(isDeleted ? Color.red
-                            .opacity(0.7) : .primary.opacity(0.7))
+                        .foregroundColor(
+                            isDeleted
+                                ? Color.red
+                                    .opacity(0.7) : .primary.opacity(0.7))
                     Spacer()
                 }
                 HStack {
                     Text(url).italic()
                         .multilineTextAlignment(.leading)
-                        .foregroundColor(isDeleted ? Color.red
-                            .opacity(0.7) : .primary.opacity(0.7))
+                        .foregroundColor(
+                            isDeleted
+                                ? Color.red
+                                    .opacity(0.7) : .primary.opacity(0.7))
                     Spacer()
                 }
+                Spacer()
             }
         }
         .padding(EdgeInsets(top: 4, leading: 0, bottom: 4, trailing: 0))
