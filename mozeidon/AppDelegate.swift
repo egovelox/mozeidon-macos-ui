@@ -170,6 +170,16 @@ extension AppDelegate: DSFQuickActionBarContentSource {
     }
 
     func quickActionBar(
+        _ quickActionBar: DSFQuickActionBar, itemType items: [AnyHashable]
+    ) -> ItemType {
+        if let filter = items.first as? Filter {
+            return filter.type
+        } else {
+            return .noItem
+        }
+    }
+
+    func quickActionBar(
         _: DSFQuickActionBar, viewForItem item: AnyHashable, searchTerm: String
     ) -> NSView? {
 

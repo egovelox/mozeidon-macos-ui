@@ -15,6 +15,7 @@ struct Filter: Hashable, CustomStringConvertible {
     var userPresenting: String
     let url: String
     var description: String
+    var type: ItemType
 }
 
 class Filters {
@@ -66,7 +67,7 @@ class Filters {
             let tab = $0.components(separatedBy: " ")
             return Filter(
                 id: tab[0], name: tab[1], userPresenting: tab[1], url: tab[2],
-                description: tab[3..<tab.count].joined(separator: " "))
+                description: tab[3..<tab.count].joined(separator: " "), type: .tab)
         }
     }
 
@@ -79,7 +80,7 @@ class Filters {
             let tab = $0.components(separatedBy: " ")
             return Filter(
                 id: tab[2], name: tab[1], userPresenting: tab[1], url: tab[2],
-                description: tab[3..<tab.count].joined(separator: " "))
+                description: tab[3..<tab.count].joined(separator: " "), type: .recentlyClosed)
         }
     }
 
@@ -99,7 +100,7 @@ class Filters {
                 separator: "/")
             return Filter(
                 id: parts[2], name: title, userPresenting: title, url: shortUrl,
-                description: parent)
+                description: parent, type: .bookmark)
         }
     }
 
@@ -118,7 +119,7 @@ class Filters {
                 separator: "/")
             return Filter(
                 id: parts[2], name: title, userPresenting: title, url: "",
-                description: shortUrl)
+                description: shortUrl, type: .historyItem)
         }
     }
 

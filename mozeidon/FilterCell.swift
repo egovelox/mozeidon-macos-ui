@@ -27,6 +27,7 @@ struct FilterCellQuickViewSwiftUI: View {
             VStack(alignment: .leading) {
                 HStack {
                     Text(title)
+                        .textSelection(.enabled)
                         .font(.system(size: 16))
                         .multilineTextAlignment(.leading)
                         .foregroundColor(
@@ -35,6 +36,7 @@ struct FilterCellQuickViewSwiftUI: View {
                 }
                 HStack {
                     Text(description).italic()
+                        .textSelection(.enabled)
                         .multilineTextAlignment(.leading)
                         .foregroundColor(
                             isDeleted
@@ -44,6 +46,7 @@ struct FilterCellQuickViewSwiftUI: View {
                 }
                 HStack {
                     Text(url).italic()
+                        .textSelection(.enabled)
                         .multilineTextAlignment(.leading)
                         .foregroundColor(
                             isDeleted

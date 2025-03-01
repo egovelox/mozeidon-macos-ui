@@ -65,6 +65,10 @@ public protocol DSFQuickActionBarContentSource: NSObjectProtocol {
     func quickActionBar(
         _ quickActionBar: DSFQuickActionBar, canSelectItem item: AnyHashable
     ) -> Bool
+    
+    func quickActionBar(
+        _ quickActionBar: DSFQuickActionBar, itemType items: [AnyHashable]
+    ) -> ItemType
 
     /// Called when an item is selected.
     func quickActionBar(

@@ -20,9 +20,9 @@ struct StatusItemView: View {
             Text("Mozeidon settings").font(.largeTitle.weight(.bold))
             Spacer().frame(height: 20)
             Form {
-                TextField("default search \n", text: $tabsPlaceHolder).frame(
+                TextField("default search", text: $tabsPlaceHolder).frame(
                     maxWidth: 300)
-            }
+            }.formStyle(.columns)
             DisclosureGroup(
                 content: {
                     Form {
@@ -31,7 +31,7 @@ struct StatusItemView: View {
                     }.formStyle(.grouped)
                 },
                 label: {
-                    Text("Cli settings")
+                    Text("CLI settings")
                 }
             )
             DisclosureGroup(

@@ -112,6 +112,37 @@ extension DSFQuickActionBar {
 
             return t
         }()
+        
+        // The count label
+        internal lazy var countLabel: NSTextField = {
+            let t = NSTextField()
+            t.translatesAutoresizingMaskIntoConstraints = false
+            t.wantsLayer = true
+            t.drawsBackground = true
+            t.isBordered = false
+            t.isBezeled = true
+            t.bezelStyle = .roundedBezel
+            t.font = NSFont.systemFont(ofSize: 16, weight: .light)
+            t.textColor = NSColor.secondaryLabelColor
+            t.alignment = .left
+            t.isEnabled = true
+            t.isEditable = false
+            t.isSelectable = true
+            t.cell?.wraps = false
+            t.cell?.isScrollable = true
+            t.maximumNumberOfLines = 1
+            
+            t.focusRingType = .none
+
+            t.setContentHuggingPriority(.defaultLow, for: .horizontal)
+            t.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            t.setContentCompressionResistancePriority(
+                .defaultLow, for: .horizontal)
+            t.setContentCompressionResistancePriority(
+                .defaultHigh, for: .vertical)
+
+            return t
+        }()
 
         // The upper left image
         private lazy var searchImage: NSImageView = {
@@ -156,11 +187,13 @@ extension DSFQuickActionBar {
             editLabel.setContentHuggingPriority(.defaultHigh, for: .vertical)
 
             stack.addArrangedSubview(asyncActivityIndicator)
+            stack.addArrangedSubview(countLabel)
+            countLabel.setContentHuggingPriority(.defaultLow, for: .horizontal)
 
+            stack.alignment = .lastBaseline
             stack.setContentHuggingPriority(.defaultHigh, for: .horizontal)
             stack.setContentHuggingPriority(.defaultHigh, for: .vertical)
-
-            stack.setHuggingPriority(.required, for: .vertical)
+            stack.setHuggingPriority(.defaultHigh, for: .vertical)
 
             return stack
         }()
@@ -314,8 +347,9 @@ extension DSFQuickActionBar.Window {
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
                 self.cancelCurrentSearchTask()
+                let type = contentSource.quickActionBar(_: self.quickActionBar, itemType: results ?? [])
                 self.updateResults(
-                    currentSearch: currentSearch, results: results ?? [])
+                    currentSearch: currentSearch, results: results ?? [], type: type)
             }
         }
 
@@ -327,13 +361,15 @@ extension DSFQuickActionBar.Window {
             self.quickActionBar, itemsForSearchTermTask: itemsTask)
     }
 
-    private func updateResults(currentSearch: String, results: [AnyHashable]) {
+    private func updateResults(currentSearch: String, results: [AnyHashable], type: ItemType) {
         // Must always be called on the main thread
         precondition(Thread.isMainThread)
 
         self.asyncActivityIndicator.stopAnimation(self)
         self.results.currentSearchTerm = currentSearch
         self.results.identifiers = results
+        let type = type.toUIString(plural: results.count > 1)
+        self.countLabel.stringValue = "\(results.count) \(type)"
     }
 
     private func cancelCurrentSearchTask() {

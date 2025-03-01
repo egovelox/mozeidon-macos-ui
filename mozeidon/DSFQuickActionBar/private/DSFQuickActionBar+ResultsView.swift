@@ -148,7 +148,7 @@ extension DSFQuickActionBar.ResultsView {
         tableView.parent = self
         tableView.headerView = nil
         tableView.backgroundColor = NSColor.clear
-        tableView.intercellSpacing = NSSize(width: 0, height: 5)
+        tableView.intercellSpacing = NSSize(width: 0, height: 7)
 
         if #available(macOS 10.13, *) {
             tableView.usesAutomaticRowHeights = true
@@ -524,8 +524,8 @@ private class ResultsRowView: NSTableRowView {
         if selectionHighlightStyle != .none {
             NSColor.black.withAlphaComponent(0.15).setFill()
             let pth = NSBezierPath(
-                roundedRect: self.bounds.insetBy(dx: 4, dy: 2), xRadius: 4,
-                yRadius: 4)
+                roundedRect: self.bounds.insetBy(dx: 4, dy: 2), xRadius: 8,
+                yRadius: 8)
             pth.fill()
         }
     }
