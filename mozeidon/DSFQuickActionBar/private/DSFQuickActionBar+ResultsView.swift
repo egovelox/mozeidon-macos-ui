@@ -522,7 +522,7 @@ extension DSFQuickActionBar {
 private class ResultsRowView: NSTableRowView {
     override func drawSelection(in dirtyRect: NSRect) {
         if selectionHighlightStyle != .none {
-            NSColor.black.withAlphaComponent(0.15).setFill()
+            NSColor.controlBackgroundColor.setFill()
             let pth = NSBezierPath(
                 roundedRect: self.bounds.insetBy(dx: 4, dy: 2), xRadius: 8,
                 yRadius: 8)

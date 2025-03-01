@@ -7,36 +7,36 @@
 import CoreImage
 import Foundation
 
-let filters__ = Filters()
+let browserItems__ = BrowserItemsData()
 
-struct Filter: Hashable, CustomStringConvertible {
+struct BrowserItem: Hashable, CustomStringConvertible {
     let id: String
     let name: String
     var userPresenting: String
     let url: String
     var description: String
-    var type: ItemType
+    var type: BrowserItemType
 }
 
-class Filters {
+class BrowserItemsData {
     // If true, displays all of the filters if the search term is empty
     var showAllIfEmpty = true
 
     // All the filters
-    var all: [Filter] = []
+    var all: [BrowserItem] = []
 
     // Return filters matching the search term
-    func search(_ commandType: String, _ cliPath: String, _ searchTerm: String)
-        -> [Filter]
+    func search(_ browserItemType: BrowserItemType, _ cliPath: String, _ searchTerm: String)
+        -> [BrowserItem]
     {
         if shouldReload() {
-            if commandType == "tabs" {
+            if browserItemType == .tab {
                 all = load(cliPath)
-            } else if commandType == "recentlyClosedTabs" {
+            } else if browserItemType == .recentlyClosed {
                 all = loadRecentlyClosedTabs(cliPath)
-            } else if commandType == "bookmarks" {
+            } else if browserItemType == .bookmark {
                 all = loadBookmarks(cliPath)
-            } else if commandType == "historyItems" {
+            } else if browserItemType == .historyItem {
                 all = loadHistoryItems(cliPath)
             }
         }
@@ -58,33 +58,33 @@ class Filters {
         return all.isEmpty
     }
 
-    func load(_ cliPath: String) -> [Filter] {
+    func load(_ cliPath: String) -> [BrowserItem] {
         let raw = shell(
             "\(cliPath) tabs get --go-template '{{range .Items}}{{.WindowId}}:{{.Id}} {{.Domain}} {{.Url}} {{.Title}}{{\"\\n\"}}{{end}}'"
         )
         let tabs = raw.components(separatedBy: "\n").dropLast()
         return tabs.map {
             let tab = $0.components(separatedBy: " ")
-            return Filter(
+            return BrowserItem(
                 id: tab[0], name: tab[1], userPresenting: tab[1], url: tab[2],
                 description: tab[3..<tab.count].joined(separator: " "), type: .tab)
         }
     }
 
-    func loadRecentlyClosedTabs(_ cliPath: String) -> [Filter] {
+    func loadRecentlyClosedTabs(_ cliPath: String) -> [BrowserItem] {
         let raw = shell(
             "\(cliPath) tabs get -c --go-template '{{range .Items}}{{.WindowId}}:{{.Id}} {{.Domain}} {{.Url}} {{.Title}}{{\"\\n\"}}{{end}}'"
         )
         let tabs = raw.components(separatedBy: "\n").dropLast()
         return tabs.map {
             let tab = $0.components(separatedBy: " ")
-            return Filter(
+            return BrowserItem(
                 id: tab[2], name: tab[1], userPresenting: tab[1], url: tab[2],
                 description: tab[3..<tab.count].joined(separator: " "), type: .recentlyClosed)
         }
     }
 
-    func loadBookmarks(_ cliPath: String) -> [Filter] {
+    func loadBookmarks(_ cliPath: String) -> [BrowserItem] {
         let separator = " ::mzseparator:: "
         let rawB = shell(
             "\(cliPath) bookmarks --go-template '{{range .Items}}{{.Title}}\(separator){{.Parent}}\(separator){{.Url}} {{\"\\n\"}}{{end}}'"
@@ -98,13 +98,13 @@ class Filters {
                 of: "https?://", with: "", options: .regularExpression)
             let shortUrl = url.components(separatedBy: "/").prefix(5).joined(
                 separator: "/")
-            return Filter(
+            return BrowserItem(
                 id: parts[2], name: title, userPresenting: title, url: shortUrl,
                 description: parent, type: .bookmark)
         }
     }
 
-    func loadHistoryItems(_ cliPath: String) -> [Filter] {
+    func loadHistoryItems(_ cliPath: String) -> [BrowserItem] {
         let separator = " ::mzseparator:: "
         let rawH = shell(
             "\(cliPath) history --go-template '{{range .Items}}{{.Title}}\(separator){{.Id}}\(separator){{.Url}} {{\"\\n\"}}{{end}}'"
@@ -117,7 +117,7 @@ class Filters {
                 of: "https?://", with: "", options: .regularExpression)
             let shortUrl = url.components(separatedBy: "/").prefix(5).joined(
                 separator: "/")
-            return Filter(
+            return BrowserItem(
                 id: parts[2], name: title, userPresenting: title, url: "",
                 description: shortUrl, type: .historyItem)
         }
@@ -140,6 +140,7 @@ func shell(_ command: String) -> String {
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
 
     guard let standardOutput = String(data: data, encoding: .utf8) else {
+        Swift.print("inside else")
         FileHandle.standardError.write(
             Data("Error in reading standard output data".utf8))
         fatalError()

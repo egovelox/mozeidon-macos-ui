@@ -7,11 +7,11 @@
 import KeyboardShortcuts
 import SwiftUI
 
-struct StatusItemView: View {
+struct StatusBarView: View {
 
     @AppStorage("mozeidonCli") var mozeidonCli = "/opt/homebrew/bin/mozeidon"
     @AppStorage("browserToOpen") var browserToOpen = "firefox"
-    @AppStorage("tabsPlaceholder") var tabsPlaceHolder = ""
+    @AppStorage("defaultSearchTerms") var defaultSearchTerms = ""
 
     var body: some View {
 
@@ -20,7 +20,7 @@ struct StatusItemView: View {
             Text("Mozeidon settings").font(.largeTitle.weight(.bold))
             Spacer().frame(height: 20)
             Form {
-                TextField("default search", text: $tabsPlaceHolder).frame(
+                TextField("default search", text: $defaultSearchTerms).frame(
                     maxWidth: 300)
             }.formStyle(.columns)
             DisclosureGroup(

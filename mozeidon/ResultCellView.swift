@@ -5,17 +5,17 @@
 //
 import SwiftUI
 
-func SwiftUIResultCell(filter: Filter, currentSearch: String, isDeleted: Bool)
+func ResultCell(browserItem: BrowserItem, currentSearch: String, isDeleted: Bool)
     -> NSView
 {
-    let uiView = FilterCellQuickViewSwiftUI(
-        title: filter.userPresenting, description: filter.description,
-        url: filter.url, isDeleted: isDeleted)
+    let uiView = ResultCellView(
+        title: browserItem.userPresenting, description: browserItem.description,
+        url: browserItem.url, isDeleted: isDeleted)
     let hosting = NSHostingView(rootView: uiView)
     return hosting
 }
 
-struct FilterCellQuickViewSwiftUI: View {
+struct ResultCellView: View {
 
     let title: String
     let description: String

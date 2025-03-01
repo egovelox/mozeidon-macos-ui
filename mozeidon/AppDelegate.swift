@@ -12,21 +12,24 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var currentSearch = ""
     var deletedItems: [AnyHashable] = []
     var lastActiveApp: NSRunningApplication?
-    var contentView: StatusItemView?
-    var commandType = ""
+    var statusBarView: StatusBarView?
+    var browserItemType: BrowserItemType = .noItem
+    
+    var statusBarItem: NSStatusItem?
+    var popover: NSPopover?
 
     func getMozeidonCliPath() -> String {
-        if contentView != nil,
-            contentView!.$mozeidonCli.wrappedValue.hasSuffix("mozeidon")
+        if statusBarView != nil,
+           statusBarView!.$mozeidonCli.wrappedValue.hasSuffix("mozeidon")
         {
-            return contentView?.$mozeidonCli.wrappedValue ?? "mozeidon"
+            return statusBarView?.$mozeidonCli.wrappedValue ?? "mozeidon"
         } else {
             fatalError("The mozeidon cli path must terminate with `mozeidon`")
         }
     }
 
     func getBrowserToOpen() -> String {
-        return contentView?.$browserToOpen.wrappedValue ?? "firefox"
+        return statusBarView?.$browserToOpen.wrappedValue ?? "firefox"
     }
 
     func captureLastActiveApp() {
@@ -43,36 +46,47 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     lazy var quickActionBar: DSFQuickActionBar = {
-        let b = DSFQuickActionBar()
-        b.contentSource = self
-        b.rowHeight = 48
-        return b
+        let bar = DSFQuickActionBar()
+        bar.contentSource = self
+        bar.rowHeight = 48
+        return bar
     }()
-    var statusBarItem: NSStatusItem?
-    var popover: NSPopover?
-
+    
+    @IBAction func showQuickActionBar(_: Any) {
+        self.quickActionBar.present(
+            placeholderText: "",
+            searchImage: NSImage(named: NSImage.Name("mozeidon")),
+            initialSearchText: statusBarView!.$defaultSearchTerms.wrappedValue,
+            width: 800,
+            height: 400,
+            showKeyboardShortcuts: true
+        ) {
+            Swift.print("Quick action bar closed")
+        }
+    }
+    
     func tabs() {
-        self.commandType = "tabs"
+        self.browserItemType = .tab
         self.captureLastActiveApp()
-        self.showGlobalQuickActions("")
+        self.showQuickActionBar("")
     }
 
     func bookmarks() {
-        self.commandType = "bookmarks"
+        self.browserItemType = .bookmark
         self.captureLastActiveApp()
-        self.showGlobalQuickActions("")
+        self.showQuickActionBar("")
     }
 
     func historyItems() {
-        self.commandType = "historyItems"
+        self.browserItemType = .historyItem
         self.captureLastActiveApp()
-        self.showGlobalQuickActions("")
+        self.showQuickActionBar("")
     }
 
     func recentlyClosedTabs() {
-        self.commandType = "recentlyClosedTabs"
+        self.browserItemType = .recentlyClosed
         self.captureLastActiveApp()
-        self.showGlobalQuickActions("")
+        self.showQuickActionBar("")
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
@@ -88,7 +102,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         KeyboardShortcuts.onKeyUp(for: .recentlyClosedTabs) { [self] in
             self.recentlyClosedTabs()
         }
-        // Create a status bar item
+        // Create a status bar
         statusBarItem = NSStatusBar.system.statusItem(
             withLength: NSStatusItem.variableLength)
 
@@ -100,13 +114,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             statusBarItem?.isVisible = true
 
             // Create an instance of your SwiftUI view
-            contentView = StatusItemView()
-            print(contentView!.$mozeidonCli)
+            statusBarView = StatusBarView()
 
             // Create an NSPopover to display the SwiftUI view
             popover = NSPopover()
             popover?.contentViewController = NSHostingController(
-                rootView: contentView)
+                rootView: statusBarView)
             // popover should automatically close when the user interacts with anything outside
             popover?.behavior = .transient
 
@@ -133,26 +146,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             }
         }
     }
-
-    @IBAction func showGlobalQuickActions(_: Any) {
-        self.quickActionBar.present(
-            placeholderText: "",
-            searchImage: NSImage(named: NSImage.Name("mozeidon")),
-            initialSearchText: contentView!.$tabsPlaceHolder.wrappedValue,
-            width: 800,
-            height: 400,
-            showKeyboardShortcuts: true
-        ) {
-            Swift.print("Quick action bar closed")
-        }
-    }
-}
-
-func MakeSeparator() -> NSView {
-    let s = NSBox()
-    s.translatesAutoresizingMaskIntoConstraints = false
-    s.boxType = .separator
-    return s
 }
 
 extension AppDelegate: DSFQuickActionBarContentSource {
@@ -163,17 +156,17 @@ extension AppDelegate: DSFQuickActionBarContentSource {
     ) {
         self.currentSearch = task.searchTerm
 
-        let currentMatches: [AnyHashable] = filters__.search(
-            commandType, getMozeidonCliPath(), task.searchTerm)
+        let currentMatches: [AnyHashable] = browserItems__.search(
+            browserItemType, getMozeidonCliPath(), task.searchTerm)
 
         task.complete(with: currentMatches)
     }
 
     func quickActionBar(
-        _ quickActionBar: DSFQuickActionBar, itemType items: [AnyHashable]
-    ) -> ItemType {
-        if let filter = items.first as? Filter {
-            return filter.type
+        _ quickActionBar: DSFQuickActionBar, browserItemType items: [AnyHashable]
+    ) -> BrowserItemType {
+        if let browserItem = items.first as? BrowserItem {
+            return browserItem.type
         } else {
             return .noItem
         }
@@ -183,9 +176,9 @@ extension AppDelegate: DSFQuickActionBarContentSource {
         _: DSFQuickActionBar, viewForItem item: AnyHashable, searchTerm: String
     ) -> NSView? {
 
-        if let filter = item as? Filter {
-            return SwiftUIResultCell(
-                filter: filter, currentSearch: currentSearch,
+        if let browserItem = item as? BrowserItem {
+            return ResultCell(
+                browserItem: browserItem, currentSearch: currentSearch,
                 isDeleted: deletedItems.contains(item))
         } else if let separator = item as? NSBox {
             return separator
@@ -207,21 +200,21 @@ extension AppDelegate: DSFQuickActionBarContentSource {
 
     func quickActionBar(_: DSFQuickActionBar, didActivateItem item: AnyHashable)
     {
-        if commandType == "tabs" {
-            if let tab = item as? Filter {
+        if browserItemType == .tab {
+            if let browserItem = item as? BrowserItem {
                 shell(
-                    "\(getMozeidonCliPath()) tabs switch \(tab.id) && open -a \"\(getBrowserToOpen())\""
+                    "\(getMozeidonCliPath()) tabs switch \(browserItem.id) && open -a \"\(getBrowserToOpen())\""
                 )
-                filters__.clear()
+                browserItems__.clear()
             } else {
                 fatalError()
             }
         } else {
-            if let tab = item as? Filter {
+            if let browserItem = item as? BrowserItem {
                 shell(
-                    "\(getMozeidonCliPath()) tabs new \(tab.id) && open -a \"\(getBrowserToOpen())\""
+                    "\(getMozeidonCliPath()) tabs new \"\(browserItem.id)\" && open -a \"\(getBrowserToOpen())\""
                 )
-                filters__.clear()
+                browserItems__.clear()
             } else {
                 fatalError()
             }
@@ -231,9 +224,9 @@ extension AppDelegate: DSFQuickActionBarContentSource {
     func quickActionBar(
         _: DSFQuickActionBar, didActivate2Item item: AnyHashable
     ) {
-        if commandType == "tabs" {
-            if let tab = item as? Filter {
-                shell("\(getMozeidonCliPath()) tabs close \(tab.id)")
+        if browserItemType == .tab {
+            if let browserItem = item as? BrowserItem {
+                shell("\(getMozeidonCliPath()) tabs close \(browserItem.id)")
                 self.deletedItems.append(item)
             } else {
                 fatalError()
@@ -242,7 +235,7 @@ extension AppDelegate: DSFQuickActionBarContentSource {
     }
 
     func quickActionBarDidCancel(_: DSFQuickActionBar) {
-        filters__.clear()
+        browserItems__.clear()
         deletedItems = []
         self.restoreFocusToPreviousApp()
     }

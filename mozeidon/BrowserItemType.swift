@@ -4,7 +4,7 @@
 //
 //
 
-public enum ItemType {
+public enum BrowserItemType {
     case tab, bookmark, recentlyClosed, historyItem, noItem
     
     

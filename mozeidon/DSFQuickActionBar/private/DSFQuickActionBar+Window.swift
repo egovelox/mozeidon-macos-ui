@@ -347,9 +347,9 @@ extension DSFQuickActionBar.Window {
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
                 self.cancelCurrentSearchTask()
-                let type = contentSource.quickActionBar(_: self.quickActionBar, itemType: results ?? [])
+                let type = contentSource.quickActionBar(_: self.quickActionBar, browserItemType: results ?? [])
                 self.updateResults(
-                    currentSearch: currentSearch, results: results ?? [], type: type)
+                    currentSearch: currentSearch, results: results ?? [], browserItemType: type)
             }
         }
 
@@ -361,14 +361,14 @@ extension DSFQuickActionBar.Window {
             self.quickActionBar, itemsForSearchTermTask: itemsTask)
     }
 
-    private func updateResults(currentSearch: String, results: [AnyHashable], type: ItemType) {
+    private func updateResults(currentSearch: String, results: [AnyHashable], browserItemType: BrowserItemType) {
         // Must always be called on the main thread
         precondition(Thread.isMainThread)
 
         self.asyncActivityIndicator.stopAnimation(self)
         self.results.currentSearchTerm = currentSearch
         self.results.identifiers = results
-        let type = type.toUIString(plural: results.count > 1)
+        let type = browserItemType.toUIString(plural: results.count > 1)
         self.countLabel.stringValue = "\(results.count) \(type)"
     }
 
