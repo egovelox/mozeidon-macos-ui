@@ -1,6 +1,6 @@
 # mozeidon-macos-ui
 
-A simple window ala `spotlight` to list and select Mozilla tabs or bookmarks via `mozeidon`.
+A simple window ala `spotlight` to list and select Firefox or Chrome tabs, history and bookmarks via `mozeidon`.
 
 ⚠️ this app does not run in `sandbox` mode, because the app relies on the [mozeidon CLI](https://github.com/egovelox/mozeidon/tree/main?tab=readme-ov-file#mozeidon-cli) executable.
 
