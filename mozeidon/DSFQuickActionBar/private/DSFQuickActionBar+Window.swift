@@ -400,6 +400,24 @@ extension DSFQuickActionBar.Window: NSTextFieldDelegate {
         _ control: NSControl, textView: NSTextView,
         doCommandBy commandSelector: Selector
     ) -> Bool {
+
+        /* on press Enter or Return,
+         * if no results in the search bar and a current search text
+         * open a new tab
+         */
+        if let event = self.currentEvent {
+            if event.keyCode == 36 || event.keyCode == 76 {  // return or enter
+                if self.results.identifiers.isEmpty,
+                    !textView.string.isEmpty
+                {
+                    self.results.contentSource?.quickActionBar(
+                        self.quickActionBar,
+                        searchTermWithNoResults: textView.string)
+                    return true
+                }
+            }
+        }
+
         if let event = self.currentEvent,
             event.modifierFlags.contains(.control)
                 || event.modifierFlags.contains(.command)

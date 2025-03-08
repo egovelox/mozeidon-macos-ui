@@ -14,13 +14,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var lastActiveApp: NSRunningApplication?
     var statusBarView: StatusBarView?
     var browserItemType: BrowserItemType = .noItem
-    
+
     var statusBarItem: NSStatusItem?
     var popover: NSPopover?
 
     func getMozeidonCliPath() -> String {
         if statusBarView != nil,
-           statusBarView!.$mozeidonCli.wrappedValue.hasSuffix("mozeidon")
+            statusBarView!.$mozeidonCli.wrappedValue.hasSuffix("mozeidon")
         {
             return statusBarView?.$mozeidonCli.wrappedValue ?? "mozeidon"
         } else {
@@ -51,7 +51,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         bar.rowHeight = 48
         return bar
     }()
-    
+
     @IBAction func showQuickActionBar(_: Any) {
         self.quickActionBar.present(
             placeholderText: "",
@@ -64,7 +64,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             Swift.print("Quick action bar closed")
         }
     }
-    
+
     func tabs() {
         self.browserItemType = .tab
         self.captureLastActiveApp()
@@ -163,7 +163,19 @@ extension AppDelegate: DSFQuickActionBarContentSource {
     }
 
     func quickActionBar(
-        _ quickActionBar: DSFQuickActionBar, browserItemType items: [AnyHashable]
+        _ quickActionBar: DSFQuickActionBar,
+        searchTermWithNoResults term: String
+    ) {
+        // first cancel to allow a swift behaviour
+        quickActionBar.cancel()
+        shell(
+            "\(getMozeidonCliPath()) tabs new \"\(term)\" && open -a \"\(getBrowserToOpen())\""
+        )
+    }
+
+    func quickActionBar(
+        _ quickActionBar: DSFQuickActionBar,
+        browserItemType items: [AnyHashable]
     ) -> BrowserItemType {
         if let browserItem = items.first as? BrowserItem {
             return browserItem.type

@@ -140,7 +140,6 @@ func shell(_ command: String) -> String {
     let data = pipe.fileHandleForReading.readDataToEndOfFile()
 
     guard let standardOutput = String(data: data, encoding: .utf8) else {
-        Swift.print("inside else")
         FileHandle.standardError.write(
             Data("Error in reading standard output data".utf8))
         fatalError()

@@ -70,6 +70,9 @@ public protocol DSFQuickActionBarContentSource: NSObjectProtocol {
         _ quickActionBar: DSFQuickActionBar, browserItemType items: [AnyHashable]
     ) -> BrowserItemType
 
+    func quickActionBar(
+        _ quickActionBar: DSFQuickActionBar, searchTermWithNoResults term: String)
+    
     /// Called when an item is selected.
     func quickActionBar(
         _ quickActionBar: DSFQuickActionBar, didSelectItem item: AnyHashable)
