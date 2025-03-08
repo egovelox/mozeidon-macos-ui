@@ -112,7 +112,7 @@ extension DSFQuickActionBar {
 
             return t
         }()
-        
+
         // The count label
         internal lazy var countLabel: NSTextField = {
             let t = NSTextField()
@@ -131,7 +131,7 @@ extension DSFQuickActionBar {
             t.cell?.wraps = false
             t.cell?.isScrollable = true
             t.maximumNumberOfLines = 1
-            
+
             t.focusRingType = .none
 
             t.setContentHuggingPriority(.defaultLow, for: .horizontal)
@@ -347,9 +347,11 @@ extension DSFQuickActionBar.Window {
             DispatchQueue.main.async { [weak self] in
                 guard let `self` = self else { return }
                 self.cancelCurrentSearchTask()
-                let type = contentSource.quickActionBar(_: self.quickActionBar, browserItemType: results ?? [])
+                let type = contentSource.quickActionBar(
+                    _: self.quickActionBar, browserItemType: results ?? [])
                 self.updateResults(
-                    currentSearch: currentSearch, results: results ?? [], browserItemType: type)
+                    currentSearch: currentSearch, results: results ?? [],
+                    browserItemType: type)
             }
         }
 
@@ -361,7 +363,10 @@ extension DSFQuickActionBar.Window {
             self.quickActionBar, itemsForSearchTermTask: itemsTask)
     }
 
-    private func updateResults(currentSearch: String, results: [AnyHashable], browserItemType: BrowserItemType) {
+    private func updateResults(
+        currentSearch: String, results: [AnyHashable],
+        browserItemType: BrowserItemType
+    ) {
         // Must always be called on the main thread
         precondition(Thread.isMainThread)
 
@@ -405,14 +410,17 @@ extension DSFQuickActionBar.Window: NSTextFieldDelegate {
             if event.charactersIgnoringModifiers == "k" {
                 return self.results.selectPreviousSelectableRow()
             }
+        }
+
+        if let event = self.currentEvent,
+            event.modifierFlags.contains(.control)
+        {
             if event.charactersIgnoringModifiers == "c" {
                 self.results.backAction()  // will close the window
+                return true
             }
         }
 
-        if commandSelector == #selector(moveDown(_:)) {
-            return self.results.selectNextSelectableRow()
-        }
         if commandSelector == #selector(moveDown(_:)) {
             return self.results.selectNextSelectableRow()
         } else if commandSelector == #selector(moveUp(_:)) {
@@ -439,7 +447,6 @@ extension DSFQuickActionBar.Window: NSTextFieldDelegate {
         {
             return self.results.performShortcutAction(for: index)
         }
-
         return false
     }
 }

@@ -348,19 +348,23 @@ extension DSFQuickActionBar.ResultsView {
 
     func performShortcutAction2() {
         let selectedRow = self.tableView.selectedRow
-        //let origin = tableView.visibleRect.origin
         if selectedRow < 0 || selectedRow >= self.identifiers.count {
             return
         }
 
         let itemIdentifier = self.identifiers[selectedRow]
-        // action ( close tab + mark item as deleted )
-        self.quickActionBar.contentSource?.quickActionBar(
-            self.quickActionBar, didActivate2Item: itemIdentifier)
-        self.shortcutKeyboardMap[itemIdentifier] = nil
-        self.tableView.reloadData(
-            forRowIndexes: [selectedRow],
-            columnIndexes: [0])
+        
+        // if item is a tab, execute action ( close tab + mark item as deleted )
+        if self.quickActionBar.contentSource?.quickActionBar(
+            self.quickActionBar, browserItemType: [itemIdentifier]) == .tab
+        {
+            self.quickActionBar.contentSource?.quickActionBar(
+                self.quickActionBar, didActivate2Item: itemIdentifier)
+            self.shortcutKeyboardMap[itemIdentifier] = nil
+            self.tableView.reloadData(
+                forRowIndexes: [selectedRow],
+                columnIndexes: [0])
+        }
     }
 
     func performShortcutAction(for itemIndex: Int) -> Bool {
@@ -490,17 +494,27 @@ extension DSFQuickActionBar {
 
         override func keyDown(with event: NSEvent) {
             guard let parent = self.parent else { fatalError() }
-
             if event.keyCode == 0x24 {  // kVK_Return {
                 parent.rowAction()
             } else if event.modifierFlags.contains(.control),
                 event.keyCode == 8  // c
             {
                 parent.backAction()  // will close the window
-            } else if event.modifierFlags.contains(.control),
+            } else if event.modifierFlags.contains(.control)
+                || event.modifierFlags.contains(.command),
+                event.keyCode == 38  // j
+            {
+                _ = parent.selectNextSelectableRow()
+            } else if event.modifierFlags.contains(.control)
+                || event.modifierFlags.contains(.command),
+                event.keyCode == 40  // k
+            {
+                _ = parent.selectPreviousSelectableRow()
+            } else if event.modifierFlags.contains(.control)
+                || event.modifierFlags.contains(.command),
                 event.keyCode == 37  // l
             {
-                parent.performShortcutAction2()
+                parent.performShortcutAction2()  // will close the tab
             } else if event.modifierFlags.contains(.command),
                 let c = event.characters,
                 let v = Int(c)

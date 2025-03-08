@@ -11,7 +11,4 @@ extension KeyboardShortcuts.Name {
     static let recentlyClosedTabs = Self("recentlyClosedTabs")
     static let bookmarks = Self("bookmarks")
     static let historyItems = Self("historyItems")
-
-    static let down = Self("down")
-    static let up = Self("up")
 }

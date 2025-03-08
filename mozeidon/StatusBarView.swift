@@ -17,21 +17,22 @@ struct StatusBarView: View {
 
         VStack(alignment: .leading) {
             Spacer().frame(height: 10)
-            Text("Mozeidon settings").font(.largeTitle.weight(.bold))
+            Text("Mozeidon settings").font(.title.weight(.bold))
             Spacer().frame(height: 20)
             Form {
                 TextField("default search", text: $defaultSearchTerms).frame(
                     maxWidth: 300)
             }.formStyle(.columns)
+            Spacer().frame(height: 20)
             DisclosureGroup(
                 content: {
                     Form {
-                        TextField("mozeidon cli", text: $mozeidonCli)
-                        TextField("open -a", text: $browserToOpen)
+                        TextField("mozeidon cli", text: $mozeidonCli).help("The mozeidon CLI executable. Default is /opt/homebrew/bin/mozeidon. If you need, enter another path to the mozeidon CLI executable.")
+                        TextField("open -a", text: $browserToOpen).help("The browser that mozeidon will interact with. Default is firefox. If you need, enter another browser, e.g Google Chrome. You can check in a terminal that the value you've entered is correct, with the following command : open -a $value")
                     }.formStyle(.grouped)
                 },
                 label: {
-                    Text("CLI settings")
+                    Text("CLI settings").font(.title3.weight(.bold))
                 }
             )
             DisclosureGroup(
@@ -47,22 +48,7 @@ struct StatusBarView: View {
                     }.formStyle(.grouped)
                 },
                 label: {
-                    Text("Action keybindings")
-                }
-            )
-            DisclosureGroup(
-                content: {
-                    VStack(alignment: .leading) {
-                        Form {
-                            Section {
-                                KeyboardShortcuts.Recorder("down", name: .down)
-                                KeyboardShortcuts.Recorder("up", name: .up)
-                            }
-                        }.formStyle(.grouped)
-                    }
-                },
-                label: {
-                    Text("Navigation keybindings ( needs restart )")
+                    Text("Keybindings").font(.title3.weight(.bold))
                 }
             )
             Spacer().frame(height: 20)
