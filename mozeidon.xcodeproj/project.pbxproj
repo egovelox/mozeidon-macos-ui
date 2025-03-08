@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		90D412912D0F320E0035FF9F /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = 90D412902D0F320E0035FF9F /* KeyboardShortcuts */; };
-		90D6ADA82D261FBA00A6D370 /* DSFQuickActionBar in Frameworks */ = {isa = PBXBuildFile; productRef = 90D6ADA72D261FBA00A6D370 /* DSFQuickActionBar */; };
-		90D6ADAA2D261FBA00A6D370 /* DSFQuickActionBar-static in Frameworks */ = {isa = PBXBuildFile; productRef = 90D6ADA92D261FBA00A6D370 /* DSFQuickActionBar-static */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,9 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90D6ADA82D261FBA00A6D370 /* DSFQuickActionBar in Frameworks */,
 				90D412912D0F320E0035FF9F /* KeyboardShortcuts in Frameworks */,
-				90D6ADAA2D261FBA00A6D370 /* DSFQuickActionBar-static in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,8 +92,6 @@
 			name = mozeidon;
 			packageProductDependencies = (
 				90D412902D0F320E0035FF9F /* KeyboardShortcuts */,
-				90D6ADA72D261FBA00A6D370 /* DSFQuickActionBar */,
-				90D6ADA92D261FBA00A6D370 /* DSFQuickActionBar-static */,
 			);
 			productName = mozeidon;
 			productReference = 90A5980F2D0DD40F0066C54B /* mozeidon.app */;
@@ -129,7 +123,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				90D4128F2D0F320E0035FF9F /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
-				90D6AD952D261F7C00A6D370 /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 90A598102D0DD40F0066C54B /* Products */;
@@ -300,7 +293,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.egovelox.mozeidon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -329,7 +322,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 14.6;
+				MACOSX_DEPLOYMENT_TARGET = 13.5;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.egovelox.mozeidon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -370,14 +363,6 @@
 				minimumVersion = 2.2.4;
 			};
 		};
-		90D6AD952D261F7C00A6D370 /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/egovelox/DSFQuickActionBar";
-			requirement = {
-				branch = main;
-				kind = branch;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -385,16 +370,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 90D4128F2D0F320E0035FF9F /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */;
 			productName = KeyboardShortcuts;
-		};
-		90D6ADA72D261FBA00A6D370 /* DSFQuickActionBar */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 90D6AD952D261F7C00A6D370 /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */;
-			productName = DSFQuickActionBar;
-		};
-		90D6ADA92D261FBA00A6D370 /* DSFQuickActionBar-static */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 90D6AD952D261F7C00A6D370 /* XCRemoteSwiftPackageReference "DSFQuickActionBar" */;
-			productName = "DSFQuickActionBar-static";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>23H222</string>
+	<string>24D60</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -43,7 +43,7 @@
 	<key>LSApplicationCategoryType</key>
 	<string>public.app-category.navigation</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>14.6</string>
+	<string>13.5</string>
 	<key>LSUIElement</key>
 	<true/>
 </dict>
