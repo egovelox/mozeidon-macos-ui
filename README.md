@@ -4,6 +4,8 @@ A simple window ala `spotlight` to list and select Mozilla tabs or bookmarks via
 
 ⚠️ this app does not run in `sandbox` mode, because the app relies on the [mozeidon CLI](https://github.com/egovelox/mozeidon/tree/main?tab=readme-ov-file#mozeidon-cli) executable.
 
+<img width="640" alt="mozeidon-macos-ui" src="https://github.com/user-attachments/assets/5d3b84dd-9ef3-46be-83cc-49bf30adeef7" />
+
 ## Installation 
 
 Requirements : 
