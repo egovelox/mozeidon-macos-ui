@@ -1,10 +1,20 @@
-# mozeidon-macos-ui
+#  🔱 mozeidon-macos-ui
+
+<img width="640" alt="mozeidon-macos-ui" src="https://github.com/user-attachments/assets/5d3b84dd-9ef3-46be-83cc-49bf30adeef7" />
 
 A simple window ala `spotlight` to list and select Firefox or Chrome tabs, history and bookmarks via [mozeidon](https://github.com/egovelox/mozeidon).
 
-⚠️ This app does not run in `sandbox` mode, because the app relies on the [mozeidon CLI](https://github.com/egovelox/mozeidon/tree/main?tab=readme-ov-file#mozeidon-cli) executable.
+⚠️ This app does not run in `sandbox` mode, because the app relies on the [mozeidon CLI](https://github.com/egovelox/mozeidon/tree/main?tab=readme-ov-file#mozeidon-cli) executable.  
+⚠️ By design this app assumes that you'll always use only one browser window, see [this issue](https://github.com/egovelox/mozeidon/issues/6).
 
-<img width="640" alt="mozeidon-macos-ui" src="https://github.com/user-attachments/assets/5d3b84dd-9ef3-46be-83cc-49bf30adeef7" />
+Using `mozeidon`, set your own global shortcuts **from outside your browser** to :
+- list all currently opened tabs
+- switch to a currently opened tab
+- close a currently opened tab
+- list and open recently-closed tabs
+- list and open current history
+- list and open current bookmarks
+- open a new tab
 
 ## Installation 
 
@@ -68,9 +78,25 @@ You can also clone this repository, you'll always find the latest app release in
 
 ## Settings
 
-### CLI Settings
 
 <img width="394" alt="Screenshot 2025-05-30 at 16 13 50" src="https://github.com/user-attachments/assets/f29e94d0-8df6-4258-8c01-79e8d29b3016" />
+
+
+- In case you need to change the full path of the mozeidon CLI, run in your terminal :
+
+```bash
+which mozeidon
+```
+
+- In case you need to change the `open -a` setting, in charge of opening your browser  :
+
+| Browser open -a  | Setting |
+| -------- | ------- |
+| Firefox  | firefox    |
+| Chrome | Google Chrome   |
+| Edge | Microsoft Edge    |
+| Arc | /Applications/Arc.app/Contents/MacOS/Arc  |
+| etc... | |
 
 
 
