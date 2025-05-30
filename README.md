@@ -70,4 +70,7 @@ You can also clone this repository, you'll always find the latest app release in
 
 ### CLI Settings
 
+<img width="394" alt="Screenshot 2025-05-30 at 16 13 50" src="https://github.com/user-attachments/assets/f29e94d0-8df6-4258-8c01-79e8d29b3016" />
+
+
 
