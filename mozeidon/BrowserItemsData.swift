@@ -87,7 +87,9 @@ class BrowserItemsData {
     func loadBookmarks(_ cliPath: String) -> [BrowserItem] {
         let separator = " ::mzseparator:: "
         let rawB = shell(
-            "\(cliPath) bookmarks --go-template '{{range .Items}}{{.Title}}\(separator){{.Parent}}\(separator){{.Url}} {{\"\\n\"}}{{end}}'"
+            // the cli cannot handle too many items at once
+            // so we have to add -c 9000 ( get items by chunks of 9000 )
+            "\(cliPath) bookmarks -c 9000 --go-template '{{range .Items}}{{.Title}}\(separator){{.Parent}}\(separator){{.Url}} {{\"\\n\"}}{{end}}'"
         )
         let bmarks = rawB.components(separatedBy: "\n").dropLast()
         return bmarks.map {
@@ -107,7 +109,9 @@ class BrowserItemsData {
     func loadHistoryItems(_ cliPath: String) -> [BrowserItem] {
         let separator = " ::mzseparator:: "
         let rawH = shell(
-            "\(cliPath) history --go-template '{{range .Items}}{{.Title}}\(separator){{.Id}}\(separator){{.Url}} {{\"\\n\"}}{{end}}'"
+            // the cli cannot handle too many items at once
+            // so we have to add -c 9000 ( get items by chunks of 9000 )
+            "\(cliPath) history -c 9000 --go-template '{{range .Items}}{{.Title}}\(separator){{.Id}}\(separator){{.Url}} {{\"\\n\"}}{{end}}'"
         )
         let hItems = rawH.components(separatedBy: "\n").dropLast()
         return hItems.map {
